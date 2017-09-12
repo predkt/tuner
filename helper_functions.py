@@ -715,6 +715,13 @@ def plotCV(cvresult, accuracy_train, accuracy_valid, optimal_boosters, context, 
     plt.plot(optimal_boosters, float(accuracy_train), marker='o', markersize=6, color="blue", label = 'Train Accuracy')
     plt.plot(optimal_boosters, float(accuracy_valid), marker='o', markersize=6, color="maroon", label = 'Valid Accuracy')
     
+
+    plt.text(optimal_boosters+5, float(accuracy_train), float(accuracy_train), fontsize =12, 
+             bbox=dict(facecolor='none', edgecolor='blue', boxstyle='round,pad=1'))
+    
+    plt.text(optimal_boosters+5, float(accuracy_valid), float(accuracy_valid), fontsize =12, 
+             bbox=dict(facecolor='none', edgecolor='maroon', boxstyle='round,pad=1'))
+
     plt.legend(loc = 'best')
     if ylim:
         plt.ylim(ylim)
