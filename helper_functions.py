@@ -536,42 +536,49 @@ def objects_growth(path, description = ''):
     sys.stdout = orig_stdout
     #return''
 
-def modelfit(alg, train_dataset, train_labels, valid_dataset, valid_labels, context, metrics, 
-             useTrainCV=True, cv_folds=3, early_stopping_rounds=20, num_labels = None):
+def modelfit(alg, datasets, labels, context, metrics, useTrainCV=True, cv_folds=3, early_stopping_rounds=20, num_labels = None):
+      
+    try:
+          train_dataset= datasets[0]
+          train_labels = labels[0]
+    except Exception as e:
+          print('Unable to save data to load training samples', e)
+          raise
     
-    #plt.rcParams['figure.figsize'] = (20,10)
+    valid_dataset = datasets[1]
+    test_dataset = datasets[2]
+    
+    #train_labels = labels[0]
+    valid_labels = labels[1]
+    test_labels = labels[2]
+
+    
     run_stats={}
-    #log_root, model_root, data_root, today, now = fetch_paths()
     optimal_boosters = 0
     num_class = num_labels
-    #profiler = cProfile.Profile()
     
     
     if useTrainCV:
-       
-        #Tracer()()
-        #print(data_root)
+
         
         xgb_param = alg.get_xgb_params()
         xgb_param.update({'num_class': num_class})
         run_stats.update({'original parameters': xgb_param})
-        #run_stats.update({'context':context})
+
 
         xgtrain = xgb.DMatrix(train_dataset,label=train_labels)
-        
-        ########
-        #profiler.enable()
+
         
         cv_start_time = time.time()
         cvresult = xgb.cv(xgb_param, xgtrain, num_boost_round=alg.get_params()['n_estimators'], nfold=cv_folds,metrics=metrics, early_stopping_rounds=early_stopping_rounds)
         cv_end_time = time.time()
         
-        #run_stats.update({'cv result': cvresult})
+
         
         cv_time_raw = cv_end_time - cv_start_time
         cv_time = time.strftime("%H:%M:%S s",time.gmtime(cv_time_raw))
         run_stats.update({'cv run time': cv_time})
-        #print(run_stats)
+
         
  
         alg.set_params(n_estimators = cvresult.shape[0])
@@ -591,7 +598,8 @@ def modelfit(alg, train_dataset, train_labels, valid_dataset, valid_labels, cont
     #Predict training and validation set:
     predict_start_time = time.time()
     dtrain_predictions = alg.predict(train_dataset)
-    dvalid_predictions = alg.predict(valid_dataset)
+    if valid_dataset: dvalid_predictions = alg.predict(valid_dataset)
+    if test_dataset: dtest_predictions = alg.predict(test_dataset)
     predict_end_time = time.time()
     
     predict_time_raw = predict_end_time - predict_start_time
@@ -601,18 +609,16 @@ def modelfit(alg, train_dataset, train_labels, valid_dataset, valid_labels, cont
         
      #Print model report:
     acc_score_train = accuracy_score(train_labels, dtrain_predictions)
-    acc_score_valid = accuracy_score(valid_labels, dvalid_predictions)
-    #log_loss_score = log_loss(train_labels, dtrain_predprob)
+    if valid_labels: acc_score_valid = accuracy_score(valid_labels, dvalid_predictions)
+    if test_labels: acc_score_test = accuracy_score(test_labels, dtest_predictions)
     print ("\nModel Report")
     print ("Accuracy : {0:.5f}".format(acc_score_train)) 
     print ("Optimal Boosters : {}".format(optimal_boosters)) 
-    #print ("Accuracy : {0:.5f}".format(log_loss_score)) 
     
     run_stats.update({' Train Accuracy': acc_score_train})
-    run_stats.update({' Validation Accuracy': acc_score_valid})
-    #run_stats.update({'Negative Log-Loss Score': log_loss_score})
-    #print(run_stats)
-    
+    if acc_score_valid: run_stats.update({' Validation Accuracy': acc_score_valid})
+    if acc_score_test: run_stats.update({' Test Accuracy': acc_score_test})
+
     booster = alg.booster()
     fit_parameters = booster.attributes()
     run_stats.update({'fit attributes': fit_parameters})
@@ -636,7 +642,7 @@ def modelfit(alg, train_dataset, train_labels, valid_dataset, valid_labels, cont
     pickled = pickler(context['pickle'], run_stats, 'model results')
     
     #plotCV(cvresult, acc_score_train, acc_score_valid)  
-    plotCV(cvresult, acc_score_train, acc_score_valid, optimal_boosters, context)
+    plotCV(cvresult, acc_score_train, acc_score_valid,, acc_score_test, optimal_boosters, context)
     
     
     ##########Book keeping - update optimal parameters in dictionary with new boosters
@@ -656,7 +662,7 @@ def modelfit(alg, train_dataset, train_labels, valid_dataset, valid_labels, cont
  
 
 
-def plotCV(cvresult, accuracy_train, accuracy_valid, optimal_boosters, context, title ='Accuracy Score by Tree Growth', ylim=(0.7,1)):
+def plotCV(cvresult, accuracy_train = 0, accuracy_valid = 0, accuracy_test = 0, optimal_boosters, context, title ='Accuracy Score by Tree Growth', ylim=(0.7,1)):
     # ylim=(0.8,1.01)
     
     plt.rcParams['figure.figsize'] = (20,10)
@@ -714,14 +720,18 @@ def plotCV(cvresult, accuracy_train, accuracy_valid, optimal_boosters, context, 
 
     plt.plot(optimal_boosters, float(accuracy_train), marker='o', markersize=6, color="blue", label = 'Train Accuracy')
     plt.plot(optimal_boosters, float(accuracy_valid), marker='o', markersize=6, color="maroon", label = 'Valid Accuracy')
+    plt.plot(optimal_boosters, float(accuracy_test), marker='+', markersize=6, color="green", label = 'Test Accuracy')
     
-
     plt.text(optimal_boosters+5, float(accuracy_train), float(accuracy_train), fontsize =12, 
              bbox=dict(facecolor='none', edgecolor='blue', boxstyle='round,pad=1'))
     
     plt.text(optimal_boosters+5, float(accuracy_valid), float(accuracy_valid), fontsize =12, 
              bbox=dict(facecolor='none', edgecolor='maroon', boxstyle='round,pad=1'))
-
+    
+    plt.text(optimal_boosters+5, float(accuracytest), float(accuracy_test), fontsize =12, 
+             bbox=dict(facecolor='none', edgecolor='green', boxstyle='round,pad=1'))
+    
+    
     plt.legend(loc = 'best')
     if ylim:
         plt.ylim(ylim)
