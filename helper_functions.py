@@ -17,6 +17,7 @@ import xgboost as xgb
 from xgboost.sklearn import XGBClassifier
 
 from sklearn.metrics import log_loss, accuracy_score, precision_score, recall_score, roc_auc_score,log_loss
+from sklearn.model_selection import GridSearchCV
 
 from IPython.core.debugger import Tracer
 
@@ -598,8 +599,10 @@ def modelfit(alg, datasets, labels, context, metrics, useTrainCV=True, cv_folds=
     #Predict training and validation set:
     predict_start_time = time.time()
     dtrain_predictions = alg.predict(train_dataset)
-    if valid_dataset: dvalid_predictions = alg.predict(valid_dataset)
-    if test_dataset: dtest_predictions = alg.predict(test_dataset)
+
+    dvalid_predictions = alg.predict(valid_dataset)
+    dtest_predictions = alg.predict(test_dataset)
+
     predict_end_time = time.time()
     
     predict_time_raw = predict_end_time - predict_start_time
@@ -609,8 +612,10 @@ def modelfit(alg, datasets, labels, context, metrics, useTrainCV=True, cv_folds=
         
      #Print model report:
     acc_score_train = accuracy_score(train_labels, dtrain_predictions)
-    if valid_labels: acc_score_valid = accuracy_score(valid_labels, dvalid_predictions)
-    if test_labels: acc_score_test = accuracy_score(test_labels, dtest_predictions)
+
+    acc_score_valid = accuracy_score(valid_labels, dvalid_predictions)
+    acc_score_test = accuracy_score(test_labels, dtest_predictions)
+
     print ("\nModel Report")
     print ("Accuracy : {0:.5f}".format(acc_score_train)) 
     print ("Optimal Boosters : {}".format(optimal_boosters)) 
@@ -642,7 +647,9 @@ def modelfit(alg, datasets, labels, context, metrics, useTrainCV=True, cv_folds=
     pickled = pickler(context['pickle'], run_stats, 'model results')
     
     #plotCV(cvresult, acc_score_train, acc_score_valid)  
-    plotCV(cvresult, acc_score_train, acc_score_valid,, acc_score_test, optimal_boosters, context)
+
+    plotCV(cvresult, optimal_boosters, context, acc_score_train, acc_score_valid, acc_score_test)
+
     
     
     ##########Book keeping - update optimal parameters in dictionary with new boosters
@@ -662,7 +669,8 @@ def modelfit(alg, datasets, labels, context, metrics, useTrainCV=True, cv_folds=
  
 
 
-def plotCV(cvresult, accuracy_train = 0, accuracy_valid = 0, accuracy_test = 0, optimal_boosters, context, title ='Accuracy Score by Tree Growth', ylim=(0.7,1)):
+def plotCV(cvresult, optimal_boosters, context, accuracy_train = 0, accuracy_valid = 0, accuracy_test = 0,  title ='Accuracy Score by Tree Growth', ylim=(0.7,1)):
+
     # ylim=(0.8,1.01)
     
     plt.rcParams['figure.figsize'] = (20,10)
@@ -720,7 +728,9 @@ def plotCV(cvresult, accuracy_train = 0, accuracy_valid = 0, accuracy_test = 0, 
 
     plt.plot(optimal_boosters, float(accuracy_train), marker='o', markersize=6, color="blue", label = 'Train Accuracy')
     plt.plot(optimal_boosters, float(accuracy_valid), marker='o', markersize=6, color="maroon", label = 'Valid Accuracy')
-    plt.plot(optimal_boosters, float(accuracy_test), marker='+', markersize=6, color="green", label = 'Test Accuracy')
+
+    plt.plot(optimal_boosters, float(accuracy_test), marker='3', markersize=6, color="green", label = 'Test Accuracy')
+
     
     plt.text(optimal_boosters+5, float(accuracy_train), float(accuracy_train), fontsize =12, 
              bbox=dict(facecolor='none', edgecolor='blue', boxstyle='round,pad=1'))
@@ -728,7 +738,9 @@ def plotCV(cvresult, accuracy_train = 0, accuracy_valid = 0, accuracy_test = 0, 
     plt.text(optimal_boosters+5, float(accuracy_valid), float(accuracy_valid), fontsize =12, 
              bbox=dict(facecolor='none', edgecolor='maroon', boxstyle='round,pad=1'))
     
-    plt.text(optimal_boosters+5, float(accuracytest), float(accuracy_test), fontsize =12, 
+
+    plt.text(optimal_boosters+5, float(accuracy_test), float(accuracy_test), fontsize =12, 
+
              bbox=dict(facecolor='none', edgecolor='green', boxstyle='round,pad=1'))
     
     
@@ -789,6 +801,101 @@ def remove_duplicates(inlist):
     return outlist
     
 
+def tuner_cv(train_set, train_labels, val_set, val_labels, param_test, tuning_rounds, steps, allowed_ranges, context, scoring ='accuracy', cv = 3, val_tuned =True):
+    pickled = pickler(context['pickle'])
+    parameters = pickled['optimal parameters']
+    
+    tuning_results_params ={}
+    tuning_results_accuracy ={}
+    tuning_validation_accuracy ={}
+    rounds_to_tune = tuning_rounds
+
+    current_tuning_round = 0
+    estimator = XGBClassifier(**parameters)
+
+    tuned = False
+    param_test = param_test
+    seen = param_test
+
+
+    while not tuned:
+    
+        loop_result =()
+        
+        #update seen with parameters already tested
+        seen = { k:  seen[k] + param_test[k]  for k in seen }
+        seen = { k:  remove_duplicates(seen[k]) for k in seen }
+        
+        # Remove the duplicates
+        #seen = list(set(seen))
+    
+        gsearch = GridSearchCV(estimator = estimator, 
+                        param_grid = param_test, 
+                        scoring= scoring,
+                        n_jobs= -1,
+                        cv= cv)
+
+        loop_result = gsearch.fit(train_set, train_labels)
+        
+        # score on the validation dataset
+        loop_result_val = loop_result.score(val_set, val_labels)
+
+        tuning_results_params.update({'iter'+str(current_tuning_round): loop_result.best_params_ })
+        tuning_results_accuracy.update({'iter'+str(current_tuning_round): loop_result.best_score_ })
+        tuning_validation_accuracy.update({'iter'+str(current_tuning_round): loop_result_val })
+    
+        print('Current Iteration ', loop_result.best_params_ , ' CV Accuracy ', loop_result.best_score_, ' Validation Accuracy ', loop_result_val)
+    
+    
+        current_tuning_round = current_tuning_round + 1
+    
+        param_test = extend_param_dict(loop_result.best_params_, steps, allowed_ranges, seen)
+        print("Extended List :", param_test)
+        print('-------------------------------')
+    
+        #convert result dict values into list for comparison
+        best_params_list ={k: [loop_result.best_params_ [k]] for k in loop_result.best_params_ }
+        if param_test == best_params_list : tuned = True
+        if current_tuning_round == rounds_to_tune:  tuned = True
+    
+
+    
+    ##END WHILE TUNED  
+    write_dict(seen, context['summary'],'Tested Values')
+
+    #prepare dict for writing to file
+    tuner_results_summary ={key: str(tuning_results_params[key]) + '  CV Accuracy: ' + str(tuning_results_accuracy[key]) + '  Validation Accuracy: ' + str(tuning_validation_accuracy[key]) for key in tuning_results_params.keys() }
+
+    #compute the highest  CV accuracy 
+    max_accuracy_key =max(tuning_results_accuracy, key=lambda key: tuning_results_accuracy[key])  
+    
+    #compute the highest Validation accuracy 
+    if val_tuned: max_accuracy_key =max(tuning_validation_accuracy, key=lambda key: tuning_validation_accuracy[key])  
+
+    
+    # use CV accuracy for tuning
+    #tuning_results_params[max_accuracy_key]
+    
+    # use Validation accuracy for traiing
+    tuning_results_params[max_accuracy_key]
+
+    #pprint.pprint(tuner_results_summary)
+    write_dict(tuner_results_summary, context['summary'], 'Tuning Iterations')
+    write_dict({'Chosen:': str(tuning_results_params[max_accuracy_key]) + ' CV Accuracy: ' + str(tuning_results_accuracy[max_accuracy_key]) + ' Validation Accuracy: ' + str(tuning_validation_accuracy[max_accuracy_key])}, context['summary'])
+    
+
+    # Get the optimal parameters from the run
+    
+    # use Validation accuracy
+    params_to_update = tuning_results_params[max_accuracy_key]
+
+    # Update the parameters list with the new updated values for the params tested
+    parameters.update({k: params_to_update[k] for k in params_to_update.keys()})
+
+    # Update the pickle
+    updated_pickle = pickler(context['pickle'], parameters, 'optimal parameters')
+    
+    
 
 
 
