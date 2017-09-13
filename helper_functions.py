@@ -17,6 +17,7 @@ import xgboost as xgb
 from xgboost.sklearn import XGBClassifier
 
 from sklearn.metrics import log_loss, accuracy_score, precision_score, recall_score, roc_auc_score,log_loss
+from sklearn.model_selection import GridSearchCV
 
 from IPython.core.debugger import Tracer
 
@@ -789,8 +790,8 @@ def remove_duplicates(inlist):
     return outlist
     
 
-def tuner_cv(train_set, train_labels, val_set, val_labels, param_test, tuning_rounds, context, scoring ='accuracy', cv = 3, val_tuned =True):
-    pickled = hf.pickler(context['pickle'])
+def tuner_cv(train_set, train_labels, val_set, val_labels, param_test, tuning_rounds, steps, allowed_ranges, context, scoring ='accuracy', cv = 3, val_tuned =True):
+    pickled = pickler(context['pickle'])
     parameters = pickled['optimal parameters']
     
     tuning_results_params ={}
@@ -812,7 +813,7 @@ def tuner_cv(train_set, train_labels, val_set, val_labels, param_test, tuning_ro
         
         #update seen with parameters already tested
         seen = { k:  seen[k] + param_test[k]  for k in seen }
-        seen = { k:  hf.remove_duplicates(seen[k]) for k in seen }
+        seen = { k:  remove_duplicates(seen[k]) for k in seen }
         
         # Remove the duplicates
         #seen = list(set(seen))
@@ -837,7 +838,7 @@ def tuner_cv(train_set, train_labels, val_set, val_labels, param_test, tuning_ro
     
         current_tuning_round = current_tuning_round + 1
     
-        param_test = hf.extend_param_dict(loop_result.best_params_, steps, allowed_ranges, seen)
+        param_test = extend_param_dict(loop_result.best_params_, steps, allowed_ranges, seen)
         print("Extended List :", param_test)
         print('-------------------------------')
     
@@ -849,7 +850,7 @@ def tuner_cv(train_set, train_labels, val_set, val_labels, param_test, tuning_ro
 
     
     ##END WHILE TUNED  
-    hf.write_dict(seen, context['summary'],'Tested Values')
+    write_dict(seen, context['summary'],'Tested Values')
 
     #prepare dict for writing to file
     tuner_results_summary ={key: str(tuning_results_params[key]) + '  CV Accuracy: ' + str(tuning_results_accuracy[key]) + '  Validation Accuracy: ' + str(tuning_validation_accuracy[key]) for key in tuning_results_params.keys() }
@@ -868,8 +869,8 @@ def tuner_cv(train_set, train_labels, val_set, val_labels, param_test, tuning_ro
     tuning_results_params[max_accuracy_key]
 
     #pprint.pprint(tuner_results_summary)
-    hf.write_dict(tuner_results_summary, context['summary'], 'Tuning Iterations')
-    hf.write_dict({'Chosen:': str(tuning_results_params[max_accuracy_key]) + ' CV Accuracy: ' + str(tuning_results_accuracy[max_accuracy_key]) + ' Validation Accuracy: ' + str(tuning_validation_accuracy[max_accuracy_key])}, context['summary'])
+    write_dict(tuner_results_summary, context['summary'], 'Tuning Iterations')
+    write_dict({'Chosen:': str(tuning_results_params[max_accuracy_key]) + ' CV Accuracy: ' + str(tuning_results_accuracy[max_accuracy_key]) + ' Validation Accuracy: ' + str(tuning_validation_accuracy[max_accuracy_key])}, context['summary'])
     
 
     # Get the optimal parameters from the run
@@ -881,7 +882,7 @@ def tuner_cv(train_set, train_labels, val_set, val_labels, param_test, tuning_ro
     parameters.update({k: params_to_update[k] for k in params_to_update.keys()})
 
     # Update the pickle
-    updated_pickle = hf.pickler(context['pickle'], parameters, 'optimal parameters')
+    updated_pickle = pickler(context['pickle'], parameters, 'optimal parameters')
     
     
 

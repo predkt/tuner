@@ -1,0 +1,123 @@
+Beginning Heap
+3.5.3 |Anaconda custom (64-bit)| (default, Mar  6 2017, 11:58:13) 
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
+---------------
+Object Growth
+dict                   34928      +260
+list                   12431      +225
+tuple                  23487      +203
+weakref                 7510      +175
+function               48680      +102
+cell                   14887       +80
+set                     3591       +51
+Bbox                      50       +50
+WeakValueDictionary       56       +50
+_FuncPtr                  26       +20
+None
+-------------------------------
+Software Versions
+Installed Versions : [('Python', '3.5.3 64bit [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]'), ('IPython', '6.1.0'), ('OS', 'Linux 3.13.0 121 generic x86_64 with debian jessie sid'), ('numpy', '1.12.1'), ('scipy', '0.19.0'), ('matplotlib', '2.0.2'), ('pandas', '0.20.1'), ('scikit-learn', '0.18.2'), ('xgboost', '0.6'), ('tensorflow', '1.2.1')]
+-------------------------------
+-------------------------------
+Run time Context
+log path : logs/20170913/
+modelpickles : savedmodels/20170913/pickled_20170913022956
+pickle : runpickles/20170913/run_20170913022956
+run date : 20170913
+run time : 022956
+runprofiles path : runprofiles/20170913/
+model path : savedmodels/20170913/
+summary : runprofiles/20170913/summary_20170913022956.txt
+statsfile : stats/20170913/stats_20170913022956
+stats path : stats/20170913/
+plot path : plots/20170913/run_022956/
+-------------------------------
+-------------------------------
+Dataset Details
+validations dataset : (10000, 784)
+test dataset : (10000, 784)
+training labels : (200000,)
+training dataset : (200000, 784)
+test labels : (10000,)
+validation labels : (10000,)
+-------------------------------
+-------------------------------
+
+colsample_bylevel : 1
+learning_rate : 0.5
+subsample : 0.3
+scale_pos_weight : 1
+seed : 27
+num_class : 10
+min_child_weight : 1
+missing : None
+max_depth : 2
+gamma : 0
+n_estimators : 600
+silent : 1
+max_delta_step : 0
+reg_lambda : 1
+reg_alpha : 0
+base_score : 0.5
+colsample_bytree : 0.3
+objective : multi:softmax
+-------------------------------
+-------------------------------
+
+f107 : 1
+f103 : 2
+f102 : 5
+f10 : 4
+f104 : 5
+f101 : 7
+f108 : 2
+f0 : 1
+f105 : 3
+f1 : 3
+-------------------------------
+-------------------------------
+
+-------------------------------
+-------------------------------
+#Booster Optimize Run
+ Validation Accuracy : 0.8898
+predict time : 00:00:00 s
+pickled model : savedmodels/20170913/pickled_20170913022956
+optimal_boosters : 63
+fit time : 00:00:04 s
+saved model path : savedmodels/20170913/classxgboostcoreBooster20170913022956
+cv run time : 00:00:08 s
+ Train Accuracy : 0.894
+ Test Accuracy : 0.894
+-------------------------------
+-------------------------------
+Accuracy before tuning
+ Test Accuracy: : 0.8898
+-------------------------------
+-------------------------------
+Tested Values
+min_child_weight : [3.0, 7.0, 2.0, 4.0]
+max_depth : [3.0, 7.0, 6.0, 8.0]
+-------------------------------
+-------------------------------
+Tuning Iterations
+iter1 : {'min_child_weight': 2, 'max_depth': 6}  CV Accuracy: 0.8146  Validation Accuracy: 0.9011
+iter0 : {'min_child_weight': 3, 'max_depth': 7}  CV Accuracy: 0.8099  Validation Accuracy: 0.8969
+-------------------------------
+-------------------------------
+
+Chosen: : {'min_child_weight': 2, 'max_depth': 6} CV Accuracy: 0.8146 Validation Accuracy: 0.9011
+-------------------------------
+-------------------------------
+Tested Values
+reg_lambda : [2.0, 5.0, 8.0, 7.75, 8.25]
+-------------------------------
+-------------------------------
+Tuning Iterations
+iter1 : {'reg_lambda': 8.25}  CV Accuracy: 0.8225  Validation Accuracy: 0.9026
+iter0 : {'reg_lambda': 8}  CV Accuracy: 0.8214  Validation Accuracy: 0.9027
+-------------------------------
+-------------------------------
+
+Chosen: : {'reg_lambda': 8} CV Accuracy: 0.8214 Validation Accuracy: 0.9027
+-------------------------------
