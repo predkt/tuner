@@ -425,3 +425,12 @@ predict time : 00:00:00 s
 saved model path : savedmodels/20170912/classxgboostcoreBooster20170912201745
  Train Accuracy : 0.9655
 -------------------------------
+-------------------------------
+Dataset Details
+test labels : (10000,)
+training labels : (200000,)
+test dataset : (10000, 784)
+validations dataset : (10000, 784)
+validation labels : (10000,)
+training dataset : (200000, 784)
+-------------------------------

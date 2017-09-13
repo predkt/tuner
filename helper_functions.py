@@ -599,8 +599,10 @@ def modelfit(alg, datasets, labels, context, metrics, useTrainCV=True, cv_folds=
     #Predict training and validation set:
     predict_start_time = time.time()
     dtrain_predictions = alg.predict(train_dataset)
+
     dvalid_predictions = alg.predict(valid_dataset)
     dtest_predictions = alg.predict(test_dataset)
+
     predict_end_time = time.time()
     
     predict_time_raw = predict_end_time - predict_start_time
@@ -610,8 +612,10 @@ def modelfit(alg, datasets, labels, context, metrics, useTrainCV=True, cv_folds=
         
      #Print model report:
     acc_score_train = accuracy_score(train_labels, dtrain_predictions)
+
     acc_score_valid = accuracy_score(valid_labels, dvalid_predictions)
     acc_score_test = accuracy_score(test_labels, dtest_predictions)
+
     print ("\nModel Report")
     print ("Accuracy : {0:.5f}".format(acc_score_train)) 
     print ("Optimal Boosters : {}".format(optimal_boosters)) 
@@ -643,7 +647,9 @@ def modelfit(alg, datasets, labels, context, metrics, useTrainCV=True, cv_folds=
     pickled = pickler(context['pickle'], run_stats, 'model results')
     
     #plotCV(cvresult, acc_score_train, acc_score_valid)  
+
     plotCV(cvresult, optimal_boosters, context, acc_score_train, acc_score_valid, acc_score_test)
+
     
     
     ##########Book keeping - update optimal parameters in dictionary with new boosters
@@ -664,6 +670,7 @@ def modelfit(alg, datasets, labels, context, metrics, useTrainCV=True, cv_folds=
 
 
 def plotCV(cvresult, optimal_boosters, context, accuracy_train = 0, accuracy_valid = 0, accuracy_test = 0,  title ='Accuracy Score by Tree Growth', ylim=(0.7,1)):
+
     # ylim=(0.8,1.01)
     
     plt.rcParams['figure.figsize'] = (20,10)
@@ -721,7 +728,9 @@ def plotCV(cvresult, optimal_boosters, context, accuracy_train = 0, accuracy_val
 
     plt.plot(optimal_boosters, float(accuracy_train), marker='o', markersize=6, color="blue", label = 'Train Accuracy')
     plt.plot(optimal_boosters, float(accuracy_valid), marker='o', markersize=6, color="maroon", label = 'Valid Accuracy')
+
     plt.plot(optimal_boosters, float(accuracy_test), marker='3', markersize=6, color="green", label = 'Test Accuracy')
+
     
     plt.text(optimal_boosters+5, float(accuracy_train), float(accuracy_train), fontsize =12, 
              bbox=dict(facecolor='none', edgecolor='blue', boxstyle='round,pad=1'))
@@ -729,7 +738,9 @@ def plotCV(cvresult, optimal_boosters, context, accuracy_train = 0, accuracy_val
     plt.text(optimal_boosters+5, float(accuracy_valid), float(accuracy_valid), fontsize =12, 
              bbox=dict(facecolor='none', edgecolor='maroon', boxstyle='round,pad=1'))
     
+
     plt.text(optimal_boosters+5, float(accuracy_test), float(accuracy_test), fontsize =12, 
+
              bbox=dict(facecolor='none', edgecolor='green', boxstyle='round,pad=1'))
     
     
