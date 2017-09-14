@@ -1,0 +1,43 @@
+Beginning Heap
+3.5.3 |Anaconda custom (64-bit)| (default, Mar  6 2017, 11:58:13) 
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
+---------------
+Object Growth
+list                          12279       +72
+weakref                        7404       +68
+dict                          34712       +40
+function                      48596       +18
+tuple                         23296       +12
+method                         1229        +4
+Comm                              4        +2
+Config                           19        +2
+frame                           104        +2
+builtin_function_or_method     2910        +2
+None
+-------------------------------
+Software Versions
+Installed Versions : [('Python', '3.5.3 64bit [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]'), ('IPython', '6.1.0'), ('OS', 'Linux 3.13.0 121 generic x86_64 with debian jessie sid'), ('numpy', '1.12.1'), ('scipy', '0.19.0'), ('matplotlib', '2.0.2'), ('pandas', '0.20.1'), ('scikit-learn', '0.18.2'), ('xgboost', '0.6'), ('tensorflow', '1.2.1')]
+-------------------------------
+-------------------------------
+Run time Context
+summary : runprofiles/20170913/summary_20170913152159.txt
+stats path : stats/20170913/
+run time : 152159
+modelpickles : savedmodels/20170913/pickled_20170913152159
+model path : savedmodels/20170913/
+runprofiles path : runprofiles/20170913/
+log path : logs/20170913/
+statsfile : stats/20170913/stats_20170913152159
+run date : 20170913
+pickle : runpickles/20170913/run_20170913152159
+plot path : plots/20170913/run_152159/
+-------------------------------
+-------------------------------
+Dataset Details
+test dataset : (10000, 784)
+test labels : (10000,)
+training dataset : (200000, 784)
+validations dataset : (10000, 784)
+training labels : (200000,)
+validation labels : (10000,)
+-------------------------------

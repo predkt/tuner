@@ -5,6 +5,7 @@ import numpy as np
 import operator
 
 import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 
 import time
 import datetime
@@ -38,6 +39,7 @@ import tempfile
 import pprint
 import psutil
 import re
+import seaborn as sns
 
 import objgraph
 
@@ -599,10 +601,8 @@ def modelfit(alg, datasets, labels, context, metrics, useTrainCV=True, cv_folds=
     #Predict training and validation set:
     predict_start_time = time.time()
     dtrain_predictions = alg.predict(train_dataset)
-
     dvalid_predictions = alg.predict(valid_dataset)
     dtest_predictions = alg.predict(test_dataset)
-
     predict_end_time = time.time()
     
     predict_time_raw = predict_end_time - predict_start_time
@@ -612,10 +612,8 @@ def modelfit(alg, datasets, labels, context, metrics, useTrainCV=True, cv_folds=
         
      #Print model report:
     acc_score_train = accuracy_score(train_labels, dtrain_predictions)
-
     acc_score_valid = accuracy_score(valid_labels, dvalid_predictions)
     acc_score_test = accuracy_score(test_labels, dtest_predictions)
-
     print ("\nModel Report")
     print ("Accuracy : {0:.5f}".format(acc_score_train)) 
     print ("Optimal Boosters : {}".format(optimal_boosters)) 
@@ -647,9 +645,7 @@ def modelfit(alg, datasets, labels, context, metrics, useTrainCV=True, cv_folds=
     pickled = pickler(context['pickle'], run_stats, 'model results')
     
     #plotCV(cvresult, acc_score_train, acc_score_valid)  
-
     plotCV(cvresult, optimal_boosters, context, acc_score_train, acc_score_valid, acc_score_test)
-
     
     
     ##########Book keeping - update optimal parameters in dictionary with new boosters
@@ -669,11 +665,14 @@ def modelfit(alg, datasets, labels, context, metrics, useTrainCV=True, cv_folds=
  
 
 
-def plotCV(cvresult, optimal_boosters, context, accuracy_train = 0, accuracy_valid = 0, accuracy_test = 0,  title ='Accuracy Score by Tree Growth', ylim=(0.7,1)):
-
+def plotCV(cvresult, optimal_boosters, context, accuracy_train = 0, accuracy_valid = 0, accuracy_test = 0,  title ='accuracy score by #estimators', ylim=(0.7,1)):
     # ylim=(0.8,1.01)
     
     plt.rcParams['figure.figsize'] = (20,10)
+    plt.style.use('seaborn-colorblind')
+    sns.set_style("whitegrid")
+    watermark = mpimg.imread('images/current_logo_gray.png')
+    
     cvresult_df = pd.DataFrame(cvresult)
     x_values = list(range(cvresult_df.shape[0]))
     test_error = cvresult_df.iloc[:,0].tolist()
@@ -697,8 +696,8 @@ def plotCV(cvresult, optimal_boosters, context, accuracy_train = 0, accuracy_val
         
       
     fig = plt.figure()
-    plt.xlabel('Number of Boosters')
-    plt.ylabel('Accuracy')
+    plt.xlabel('number of boosters')
+    plt.ylabel('accuracy')
     #plt.ylim(0.7,1,1)
 
     plt.plot(x_values_int,
@@ -724,33 +723,31 @@ def plotCV(cvresult, optimal_boosters, context, accuracy_train = 0, accuracy_val
 
 
     plt.axhline(y = 1, color='k', ls ='dashed')
-    plt.axvline(x = optimal_boosters, ls ='dashed', label ='Optimal #Boosters')
-
-    plt.plot(optimal_boosters, float(accuracy_train), marker='o', markersize=6, color="blue", label = 'Train Accuracy')
-    plt.plot(optimal_boosters, float(accuracy_valid), marker='o', markersize=6, color="maroon", label = 'Valid Accuracy')
-
-    plt.plot(optimal_boosters, float(accuracy_test), marker='3', markersize=6, color="green", label = 'Test Accuracy')
+    plt.axvline(x = optimal_boosters, ls ='dashed', label ='#estimators ' + str(optimal_boosters))
 
     
-    plt.text(optimal_boosters+5, float(accuracy_train), float(accuracy_train), fontsize =12, 
-             bbox=dict(facecolor='none', edgecolor='blue', boxstyle='round,pad=1'))
-    
-    plt.text(optimal_boosters+5, float(accuracy_valid), float(accuracy_valid), fontsize =12, 
-             bbox=dict(facecolor='none', edgecolor='maroon', boxstyle='round,pad=1'))
-    
+    plt.plot(optimal_boosters, float(accuracy_train), 'b^', label = 'Train Accuracy: ' + str(accuracy_train))
+    plt.plot(optimal_boosters, float(accuracy_valid), 'm^', label = 'Valid Accuracy: ' + str(accuracy_valid))
+    plt.plot(optimal_boosters, float(accuracy_test), 'g^', label = 'Test Accuracy: '+ str(accuracy_test))
 
-    plt.text(optimal_boosters+5, float(accuracy_test), float(accuracy_test), fontsize =12, 
-
-             bbox=dict(facecolor='none', edgecolor='green', boxstyle='round,pad=1'))
-    
     
     plt.legend(loc = 'best')
     if ylim:
         plt.ylim(ylim)
     plt.title(title)
-    plt.show()
+    
+    x_axis_range = plt.xlim()
+    y_axis_range = plt.ylim()
+
+    
+    imgplot = plt.imshow(watermark, aspect = 'auto', extent=(x_axis_range[0], x_axis_range[1],  y_axis_range[0],  y_axis_range[1]), zorder= - 1, alpha =0.1)
+
     now = time.strftime("%H%M%S",time.gmtime())
     save_file = context['plot path'] + now + '.png'
+    plt.text(x_axis_range[0], y_axis_range[0], save_file, color='gray', fontsize=8)
+    
+    plt.show()
+    
     fig.savefig(save_file, bbox_inches='tight')
     pickled = pickler(context['pickle'], save_file, 'accuracy plot')
 
@@ -837,6 +834,9 @@ def tuner_cv(train_set, train_labels, val_set, val_labels, param_test, tuning_ro
 
         loop_result = gsearch.fit(train_set, train_labels)
         
+        # plot cv results
+        tuner_plot = plot_grid_search(loop_result, param_test, context)
+        
         # score on the validation dataset
         loop_result_val = loop_result.score(val_set, val_labels)
 
@@ -894,6 +894,133 @@ def tuner_cv(train_set, train_labels, val_set, val_labels, param_test, tuning_ro
 
     # Update the pickle
     updated_pickle = pickler(context['pickle'], parameters, 'optimal parameters')
+
+
+    
+    
+    
+def plot_grid_search(tuner_results, param_grid, context):
+    
+    plt.style.use('seaborn-colorblind')
+    plt.rcParams['figure.figsize'] = (20,10)
+    sns.set_style("whitegrid")
+    watermark = mpimg.imread('images/current_logo_gray.png')
+    #titlefont = {'fontname':'COUR'}
+    
+    
+    #plots only the first two parameters
+    #check to ensure only two parameters are supplied
+    # catch 0 or > 2 parameters
+    
+    cv_results = tuner_results.cv_results_
+
+    
+
+    param_values =[]
+    param_names =[]
+    best_x = 0.0
+    best_y = 0.0
+    
+    # if grid search on just one parameter
+    if len(param_grid) == 1:
+        
+        scores_mean = np.array(cv_results['mean_test_score'])
+        scores_sd = np.array(cv_results['std_test_score'])
+        
+        #get the value of a single item dict
+        param_values = next(iter(param_grid.values()))
+        param_name = next(iter(param_grid.keys()))
+        
+        #_, ax = plt.subplots(1,1)
+        fig = plt.figure()
+        
+        
+        plt.plot(param_values, scores_mean, '-o', label= param_name)
+        
+        plt.fill_between(param_values,
+                scores_mean + scores_sd,
+                scores_mean - scores_sd,
+                alpha =0.2)
+        
+        
+        best_x = float(next(iter(tuner_results.best_params_.values())))
+        best_y = float(tuner_results.best_score_)
+        
+        #ax.plot(best_x, best_y, 'g^', markersize=10,  label = 'Chosen Value ' + str(best_x) + ' Acc: ' + str(best_y))
+        
+        plt.title('tuned to ' + str(param_name))
+        plt.xlabel(str(param_name))
+        
+
+    
+    # if grid search on 2 parameters
+    if len(param_grid) == 2:
+        
+        for k, v in param_grid.items():
+            param_values.append(v)
+            param_names.append(k)
+        
+        
+        best_x = tuner_results.best_params_[param_names[0]]
+        best_y = float(tuner_results.best_score_)
+            
+    
+
+        # Get Test Scores Mean and std for each grid search
+        scores_mean = cv_results['mean_test_score']
+        scores_mean = np.array(scores_mean).reshape(len(param_values[0]),len(param_values[1]))
+
+        scores_sd = cv_results['std_test_score']
+        scores_sd = np.array(scores_sd).reshape(len(param_values[0]),len(param_values[1]))
+
+        # Plot Grid search scores
+        # _, ax = plt.subplots(1,1)
+        fig = plt.figure()
+
+        # Param1 is the X-axis, Param 2 is represented as a different curve (color line)
+        for idx, val in enumerate(param_values[1]):
+        
+            plt.plot(param_values[0], scores_mean[:, idx], '-o', label= param_names[1] + ': ' + str(val))
+            sd = scores_sd[:, idx]
+        
+            plt.fill_between(param_values[0],
+                scores_mean[:, idx] + sd,
+                scores_mean[:, idx] - sd,
+                alpha =0.2)
+            plt.title('tuning results for ' + str(param_names[0]) + ' & ' + str(param_names[1]))
+            plt.xlabel(param_names[0])
+            
+    
+    plt.plot(best_x, best_y, 'g^', markersize=10,  label = 'tuned to ' + str(tuner_results.best_params_) + '.  acc: ' + str(best_y))
+    plt.ylabel('accuracy')
+    
+    
+    
+    x_axis_range = plt.xlim()
+    y_axis_range = plt.ylim()
+
+    
+    imgplot = plt.imshow(watermark, aspect = 'auto', extent=(x_axis_range[0], x_axis_range[1],  y_axis_range[0],  y_axis_range[1]), zorder= - 1, alpha =0.1)
+    
+    plt.legend(loc='best')
+    
+#     plt.legend(frameon=True)
+#     leg = plt.legend()
+#     leg.draw_frame(True)
+#     leg.get_frame().set_edgecolor('b')
+    
+  
+    
+    now = time.strftime("%H%M%S",time.gmtime())
+    save_file = context['plot path'] + now + '.png'
+    
+    plt.text(x_axis_range[0], y_axis_range[0], save_file, color='gray', fontsize=8)
+    
+    plt.show()
+    fig.savefig(save_file, bbox_inches='tight')
+    
+    return save_file
+
     
     
 
