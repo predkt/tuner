@@ -552,7 +552,7 @@ def modelfit(alg, datasets, labels, context, metrics, useTrainCV=True, cv_folds=
     valid_dataset = datasets[1]
     test_dataset = datasets[2]
     
-    #train_labels = labels[0]
+   
     valid_labels = labels[1]
     test_labels = labels[2]
 
@@ -567,7 +567,7 @@ def modelfit(alg, datasets, labels, context, metrics, useTrainCV=True, cv_folds=
         
         xgb_param = alg.get_xgb_params()
         xgb_param.update({'num_class': num_class})
-        run_stats.update({'original parameters': xgb_param})
+        write_dict(xgb_param, context['summary'],'Parameters')
 
 
         xgtrain = xgb.DMatrix(train_dataset,label=train_labels)
@@ -581,13 +581,14 @@ def modelfit(alg, datasets, labels, context, metrics, useTrainCV=True, cv_folds=
         
         cv_time_raw = cv_end_time - cv_start_time
         cv_time = time.strftime("%H:%M:%S s",time.gmtime(cv_time_raw))
-        run_stats.update({'cv run time': cv_time})
+
+        
 
         
  
         alg.set_params(n_estimators = cvresult.shape[0])
         optimal_boosters = cvresult.shape[0]
-        run_stats.update({'optimal_boosters': optimal_boosters})
+
         
     #Fit the algorithm on the data
     fit_start_time =time.time()
@@ -596,9 +597,8 @@ def modelfit(alg, datasets, labels, context, metrics, useTrainCV=True, cv_folds=
     
     fit_time_raw = fit_end_time - fit_start_time
     fit_time = time.strftime("%H:%M:%S s",time.gmtime(fit_time_raw))
-    run_stats.update({'fit time': fit_time})
-    #print(run_stats)
-        
+
+   
     #Predict training and validation set:
     predict_start_time = time.time()
     dtrain_predictions = alg.predict(train_dataset)
@@ -608,44 +608,34 @@ def modelfit(alg, datasets, labels, context, metrics, useTrainCV=True, cv_folds=
     
     predict_time_raw = predict_end_time - predict_start_time
     predict_time = time.strftime("%H:%M:%S s",time.gmtime(predict_time_raw))
-    run_stats.update({'predict time': predict_time})
-    #print(run_stats)
+
+    
+    write_dict({'train time': cv_time, 'fit time': fit_time, 'predict time': predict_time}, context['summary'],'Run Times')
+
         
      #Print model report:
     acc_score_train = accuracy_score(train_labels, dtrain_predictions)
     acc_score_valid = accuracy_score(valid_labels, dvalid_predictions)
     acc_score_test = accuracy_score(test_labels, dtest_predictions)
     print ("\nModel Report")
-    print ("Accuracy : {0:.5f}".format(acc_score_train)) 
+    print ("Accuracy : {0:.5f}".format(acc_score_test)) 
     print ("Optimal Boosters : {}".format(optimal_boosters)) 
     
-    run_stats.update({' Train Accuracy': acc_score_train})
-    if acc_score_valid: run_stats.update({' Validation Accuracy': acc_score_valid})
-    if acc_score_test: run_stats.update({' Test Accuracy': acc_score_test})
+    run_stats.update({'Train Accuracy': acc_score_train})
+    if acc_score_valid: run_stats.update({'Validation Accuracy': acc_score_valid})
+    if acc_score_test: run_stats.update({'Test Accuracy': acc_score_test})
 
-    booster = alg.booster()
-    fit_parameters = booster.attributes()
-    run_stats.update({'fit attributes': fit_parameters})
-    class_name = html_class_name(str(booster.__class__))
-    
-    #print(now)
-    fname = context['model path'] + str(class_name) + context['run date'] + context['run time']
-    
-    
-    alg.booster().save_model(fname)
-    run_stats.update({'saved model path': fname})
     pickled = pickler(context['modelpickles'], alg, 'model')
-    run_stats.update({'pickled model': context['modelpickles']})
+
     
     feat_imp_ser = pd.Series(alg.booster().get_fscore()).head(10).sort_values(ascending=False)
     feat_dict = feat_imp_ser.to_dict()
-    run_stats.update({'Feature Importance Score': feat_dict})
-    #print(run_stats)
+    # run_stats.update({'Feature Importance Score': feat_dict})
      
-    write_dict(run_stats, context['summary'], '#Booster Optimize Run')
+    write_dict(run_stats, context['summary'], 'Results')
     pickled = pickler(context['pickle'], run_stats, 'model results')
     
-    #plotCV(cvresult, acc_score_train, acc_score_valid)  
+
     plotCV(cvresult, optimal_boosters, context, acc_score_train, acc_score_valid, acc_score_test)
     
     
@@ -659,7 +649,8 @@ def modelfit(alg, datasets, labels, context, metrics, useTrainCV=True, cv_folds=
     #update with results
     parameters.update({'n_estimators': optimal_boosters})
 
-    updated_pickle =pickler(context['pickle'], parameters, 'optimal parameters')
+    updated_pickle = pickler(context['pickle'], parameters, 'optimal parameters')
+    updated_pickle = pickler(context['pickle'], run_stats, 'run results')
     
     return updated_pickle
     ########## End Book Keeping
