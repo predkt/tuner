@@ -1,0 +1,355 @@
+Beginning Heap
+3.5.3 |Anaconda custom (64-bit)| (default, Mar  6 2017, 11:58:13) 
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
+---------------
+Object Growth
+list                  12677       +41
+weakref                7736       +40
+dict                  34977       +21
+tuple                 23583       +16
+function              48751       +15
+method                 1257        +6
+getset_descriptor      4464        +2
+set                    3595        +1
+ModuleReloader            9        +1
+VersionInformation        9        +1
+None
+-------------------------------
+Software Versions
+Installed Versions : [('Python', '3.5.3 64bit [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]'), ('IPython', '6.1.0'), ('OS', 'Linux 3.13.0 121 generic x86_64 with debian jessie sid'), ('numpy', '1.12.1'), ('scipy', '0.19.0'), ('matplotlib', '2.0.2'), ('pandas', '0.20.1'), ('scikit-learn', '0.18.2'), ('xgboost', '0.6'), ('tensorflow', '1.2.1')]
+-------------------------------
+-------------------------------
+Run time Context
+modelpickles : savedmodels/20171016/pickled_20171016223732
+pickle : runpickles/20171016/run_20171016223732
+statsfile : stats/20171016/stats_20171016223732
+model path : savedmodels/20171016/
+runprofiles path : runprofiles/20171016/
+plot path : plots/20171016/run_223732/
+log path : logs/20171016/
+stats path : stats/20171016/
+run date : 20171016
+summary : runprofiles/20171016/summary_20171016223732.txt
+run time : 223732
+-------------------------------
+-------------------------------
+Dataset Details
+test labels : (100,)
+test dataset : (100, 784)
+training dataset : (500, 784)
+validation labels : (100,)
+validations dataset : (100, 784)
+training labels : (500,)
+-------------------------------
+-------------------------------
+ Initial Parameters
+colsample_bytree : 0.7
+objective : multi:softmax
+scale_pos_weight : 1
+reg_lambda : 1
+seed : 27
+learning_rate : 0.001
+silent : 1
+min_child_weight : 1
+max_delta_step : 0
+missing : None
+colsample_bylevel : 1
+gamma : 0
+subsample : 0.7
+reg_alpha : 0.001
+n_estimators : 1000
+base_score : 0.5
+max_depth : 3
+-------------------------------
+-------------------------------
+Run Times
+fit time : 00:00:00 s
+predict time : 00:00:00 s
+train time : 00:00:12 s
+-------------------------------
+-------------------------------
+Results
+Validation Accuracy : 0.76
+Train Accuracy : 0.918
+Test Accuracy : 0.81
+-------------------------------
+-------------------------------
+ Final Parameters
+colsample_bytree : 1.0
+objective : multi:softmax
+scale_pos_weight : 1
+seed : 27
+base_score : 0.5
+silent : 1
+reg_lambda : 0.001
+max_delta_step : 0
+min_child_weight : 1
+missing : None
+colsample_bylevel : 1.0
+gamma : 0.0
+subsample : 1.0
+reg_alpha : 0.001
+n_estimators : 9
+learning_rate : 0.001
+max_depth : 15
+-------------------------------
+-------------------------------
+ Initial Parameters
+colsample_bytree : 0.7
+objective : multi:softprob
+scale_pos_weight : 1
+reg_lambda : 1
+seed : 27
+learning_rate : 0.001
+silent : 1
+min_child_weight : 1
+max_delta_step : 0
+missing : None
+colsample_bylevel : 1
+gamma : 0
+subsample : 0.7
+reg_alpha : 0.001
+n_estimators : 9
+base_score : 0.5
+max_depth : 3
+-------------------------------
+-------------------------------
+Run Times
+fit time : 00:00:00 s
+predict time : 00:00:00 s
+train time : 00:00:01 s
+-------------------------------
+-------------------------------
+Results
+Validation Accuracy : 0.76
+Train Accuracy : 0.918
+Test Accuracy : 0.81
+-------------------------------
+-------------------------------
+ Final Parameters
+colsample_bytree : 0.4
+objective : multi:softprob
+scale_pos_weight : 1
+seed : 27
+base_score : 0.5
+silent : 1
+reg_lambda : 1.0
+max_delta_step : 0
+min_child_weight : 14
+missing : None
+colsample_bylevel : 0.4
+gamma : 0.98
+subsample : 0.41
+reg_alpha : 10.0
+n_estimators : 9
+learning_rate : 0.001
+max_depth : 1
+-------------------------------
+-------------------------------
+ Initial Parameters
+colsample_bytree : 0.7
+objective : multi:softprob
+scale_pos_weight : 1
+reg_lambda : 1
+seed : 27
+learning_rate : 0.001
+silent : 1
+min_child_weight : 1
+max_delta_step : 0
+missing : None
+colsample_bylevel : 1
+gamma : 0
+subsample : 0.7
+reg_alpha : 0.001
+n_estimators : 9
+base_score : 0.5
+max_depth : 3
+-------------------------------
+-------------------------------
+Run Times
+fit time : 00:00:00 s
+predict time : 00:00:00 s
+train time : 00:00:01 s
+-------------------------------
+-------------------------------
+Results
+Validation Accuracy : 0.76
+Train Accuracy : 0.918
+Test Accuracy : 0.81
+-------------------------------
+-------------------------------
+ Final Parameters
+colsample_bytree : 0.4
+objective : multi:softprob
+scale_pos_weight : 1
+seed : 27
+base_score : 0.5
+silent : 1
+reg_lambda : 1.0
+max_delta_step : 0
+min_child_weight : 14
+missing : None
+colsample_bylevel : 0.4
+gamma : 0.98
+subsample : 0.41
+reg_alpha : 10.0
+n_estimators : 9
+learning_rate : 0.001
+max_depth : 1
+-------------------------------
+-------------------------------
+ Initial Parameters
+colsample_bytree : 0.7
+objective : multi:softmax
+scale_pos_weight : 1
+reg_lambda : 1
+seed : 27
+learning_rate : 0.001
+silent : 1
+min_child_weight : 1
+max_delta_step : 0
+missing : None
+colsample_bylevel : 1
+gamma : 0
+subsample : 0.7
+reg_alpha : 0.001
+n_estimators : 1000
+base_score : 0.5
+max_depth : 3
+-------------------------------
+-------------------------------
+Run Times
+fit time : 00:00:00 s
+predict time : 00:00:00 s
+train time : 00:00:02 s
+-------------------------------
+-------------------------------
+Results
+Validation Accuracy : 0.76
+Train Accuracy : 0.878
+Test Accuracy : 0.81
+-------------------------------
+-------------------------------
+ Final Parameters
+colsample_bytree : 0.4
+objective : multi:softmax
+scale_pos_weight : 1
+seed : 27
+base_score : 0.5
+silent : 1
+reg_lambda : 10.0
+max_delta_step : 0
+min_child_weight : 14
+missing : None
+colsample_bylevel : 0.4
+gamma : 0.99
+subsample : 0.4
+reg_alpha : 10.0
+n_estimators : 3
+learning_rate : 0.001
+max_depth : 1
+-------------------------------
+-------------------------------
+ Initial Parameters
+colsample_bytree : 0.7
+objective : multi:softmax
+scale_pos_weight : 1
+reg_lambda : 1
+seed : 27
+learning_rate : 0.001
+silent : 1
+min_child_weight : 1
+max_delta_step : 0
+missing : None
+colsample_bylevel : 1
+gamma : 0
+subsample : 0.7
+reg_alpha : 0.001
+n_estimators : 1000
+base_score : 0.5
+max_depth : 3
+-------------------------------
+-------------------------------
+Run Times
+fit time : 00:00:00 s
+predict time : 00:00:00 s
+train time : 00:00:02 s
+-------------------------------
+-------------------------------
+Results
+Validation Accuracy : 0.76
+Train Accuracy : 0.878
+Test Accuracy : 0.81
+-------------------------------
+-------------------------------
+ Final Parameters
+colsample_bytree : 0.4
+objective : multi:softmax
+scale_pos_weight : 1
+seed : 27
+base_score : 0.5
+silent : 1
+reg_lambda : 10.0
+max_delta_step : 0
+min_child_weight : 14
+missing : None
+colsample_bylevel : 0.4
+gamma : 0.99
+subsample : 0.4
+reg_alpha : 10.0
+n_estimators : 3
+learning_rate : 0.001
+max_depth : 1
+-------------------------------
+-------------------------------
+ Initial Parameters
+colsample_bytree : 0.7
+objective : multi:softprob
+scale_pos_weight : 1
+reg_lambda : 1
+seed : 27
+learning_rate : 0.001
+silent : 1
+min_child_weight : 1
+max_delta_step : 0
+missing : None
+colsample_bylevel : 1
+gamma : 0
+subsample : 0.7
+reg_alpha : 0.001
+n_estimators : 3
+base_score : 0.5
+max_depth : 3
+-------------------------------
+-------------------------------
+Run Times
+fit time : 00:00:00 s
+predict time : 00:00:00 s
+train time : 00:00:01 s
+-------------------------------
+-------------------------------
+Results
+Validation Accuracy : 0.76
+Train Accuracy : 0.878
+Test Accuracy : 0.81
+-------------------------------
+-------------------------------
+ Final Parameters
+colsample_bytree : 0.95
+objective : multi:softprob
+scale_pos_weight : 1
+seed : 27
+base_score : 0.5
+silent : 1
+reg_lambda : 0.001
+max_delta_step : 0
+min_child_weight : 1
+missing : None
+colsample_bylevel : 1.0
+gamma : 0.0
+subsample : 0.92
+reg_alpha : 0.001
+n_estimators : 3
+learning_rate : 0.001
+max_depth : 14
+-------------------------------
