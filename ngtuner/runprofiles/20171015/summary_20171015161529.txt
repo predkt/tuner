@@ -140,3 +140,429 @@ Test Accuracy : 0.87
 Validation Accuracy : 0.82
 Train Accuracy : 0.994
 -------------------------------
+-------------------------------
+Parameters
+reg_lambda : 1
+max_delta_step : 0
+objective : multi:softprob
+colsample_bytree : 0.7
+silent : 1
+reg_alpha : 0.001
+seed : 27
+scale_pos_weight : 1
+base_score : 0.5
+gamma : 0
+learning_rate : 0.3
+missing : None
+subsample : 0.7
+min_child_weight : 1
+colsample_bylevel : 1
+max_depth : 3
+n_estimators : 13
+num_class : 10
+-------------------------------
+-------------------------------
+Run Times
+predict time : 00:00:00 s
+fit time : 00:00:00 s
+train time : 00:00:02 s
+-------------------------------
+-------------------------------
+Results
+Test Accuracy : 0.87
+Validation Accuracy : 0.82
+Train Accuracy : 0.994
+-------------------------------
+-------------------------------
+Parameters
+reg_lambda : 1
+max_delta_step : 0
+objective : multi:softmax
+colsample_bytree : 0.7
+silent : 1
+reg_alpha : 0.001
+seed : 27
+scale_pos_weight : 1
+base_score : 0.5
+gamma : 0
+learning_rate : 0.3
+missing : None
+subsample : 0.7
+min_child_weight : 1
+colsample_bylevel : 1
+max_depth : 3
+n_estimators : 600
+num_class : 10
+-------------------------------
+-------------------------------
+Parameters
+reg_lambda : 1
+max_delta_step : 0
+objective : multi:softmax
+colsample_bytree : 0.7
+silent : 1
+reg_alpha : 0.001
+seed : 27
+scale_pos_weight : 1
+base_score : 0.5
+gamma : 0
+learning_rate : 0.3
+missing : None
+subsample : 0.7
+min_child_weight : 1
+colsample_bylevel : 1
+max_depth : 3
+n_estimators : 600
+num_class : 10
+-------------------------------
+-------------------------------
+Parameters
+reg_lambda : 1
+max_delta_step : 0
+objective : multi:softmax
+colsample_bytree : 0.7
+silent : 1
+reg_alpha : 0.001
+seed : 27
+scale_pos_weight : 1
+base_score : 0.5
+gamma : 0
+learning_rate : 0.3
+missing : None
+subsample : 0.7
+min_child_weight : 1
+colsample_bylevel : 1
+max_depth : 3
+n_estimators : 600
+num_class : 10
+-------------------------------
+-------------------------------
+Parameters
+reg_lambda : 1
+max_delta_step : 0
+objective : multi:softmax
+colsample_bytree : 0.7
+silent : 1
+reg_alpha : 0.001
+seed : 27
+scale_pos_weight : 1
+base_score : 0.5
+gamma : 0
+learning_rate : 0.3
+missing : None
+subsample : 0.7
+min_child_weight : 1
+colsample_bylevel : 1
+max_depth : 3
+n_estimators : 600
+num_class : 10
+-------------------------------
+-------------------------------
+Parameters
+reg_lambda : 1
+max_delta_step : 0
+objective : multi:softmax
+colsample_bytree : 0.7
+silent : 1
+reg_alpha : 0.001
+seed : 27
+scale_pos_weight : 1
+base_score : 0.5
+gamma : 0
+learning_rate : 0.3
+missing : None
+subsample : 0.7
+min_child_weight : 1
+colsample_bylevel : 1
+max_depth : 3
+n_estimators : 600
+num_class : 10
+-------------------------------
+-------------------------------
+Parameters
+reg_lambda : 1
+max_delta_step : 0
+objective : multi:softmax
+colsample_bytree : 0.7
+silent : 1
+reg_alpha : 0.001
+seed : 27
+scale_pos_weight : 1
+base_score : 0.5
+gamma : 0
+learning_rate : 0.3
+missing : None
+subsample : 0.7
+min_child_weight : 1
+colsample_bylevel : 1
+max_depth : 3
+n_estimators : 600
+num_class : 10
+-------------------------------
+-------------------------------
+Parameters
+reg_lambda : 1
+max_delta_step : 0
+objective : multi:softmax
+colsample_bytree : 0.7
+silent : 1
+reg_alpha : 0.001
+seed : 27
+scale_pos_weight : 1
+base_score : 0.5
+gamma : 0
+learning_rate : 0.3
+missing : None
+subsample : 0.7
+min_child_weight : 1
+colsample_bylevel : 1
+max_depth : 3
+n_estimators : 600
+num_class : 10
+-------------------------------
+-------------------------------
+Parameters
+reg_lambda : 1
+max_delta_step : 0
+objective : multi:softmax
+colsample_bytree : 0.7
+silent : 1
+reg_alpha : 0.001
+seed : 27
+scale_pos_weight : 1
+base_score : 0.5
+gamma : 0
+learning_rate : 0.3
+missing : None
+subsample : 0.7
+min_child_weight : 1
+colsample_bylevel : 1
+max_depth : 3
+n_estimators : 600
+num_class : 10
+-------------------------------
+-------------------------------
+Parameters
+reg_lambda : 1
+max_delta_step : 0
+objective : multi:softmax
+colsample_bytree : 0.7
+silent : 1
+reg_alpha : 0.001
+seed : 27
+scale_pos_weight : 1
+base_score : 0.5
+gamma : 0
+learning_rate : 0.3
+missing : None
+subsample : 0.7
+min_child_weight : 1
+colsample_bylevel : 1
+max_depth : 3
+n_estimators : 600
+num_class : 10
+-------------------------------
+-------------------------------
+Parameters
+reg_lambda : 1
+max_delta_step : 0
+objective : multi:softmax
+colsample_bytree : 0.7
+silent : 1
+reg_alpha : 0.001
+seed : 27
+scale_pos_weight : 1
+base_score : 0.5
+gamma : 0
+learning_rate : 0.3
+missing : None
+subsample : 0.7
+min_child_weight : 1
+colsample_bylevel : 1
+max_depth : 3
+n_estimators : 600
+num_class : 10
+-------------------------------
+-------------------------------
+Parameters
+reg_lambda : 1
+max_delta_step : 0
+objective : multi:softmax
+colsample_bytree : 0.7
+silent : 1
+reg_alpha : 0.001
+seed : 27
+scale_pos_weight : 1
+base_score : 0.5
+gamma : 0
+learning_rate : 0.3
+missing : None
+subsample : 0.7
+min_child_weight : 1
+colsample_bylevel : 1
+max_depth : 3
+n_estimators : 600
+num_class : 10
+-------------------------------
+-------------------------------
+Parameters
+reg_lambda : 1
+max_delta_step : 0
+objective : multi:softmax
+colsample_bytree : 0.7
+silent : 1
+reg_alpha : 0.001
+seed : 27
+scale_pos_weight : 1
+base_score : 0.5
+gamma : 0
+learning_rate : 0.3
+missing : None
+subsample : 0.7
+min_child_weight : 1
+colsample_bylevel : 1
+max_depth : 3
+n_estimators : 600
+num_class : 10
+-------------------------------
+-------------------------------
+Parameters
+reg_lambda : 1
+max_delta_step : 0
+objective : multi:softmax
+colsample_bytree : 0.7
+silent : 1
+reg_alpha : 0.001
+seed : 27
+scale_pos_weight : 1
+base_score : 0.5
+gamma : 0
+learning_rate : 0.3
+missing : None
+subsample : 0.7
+min_child_weight : 1
+colsample_bylevel : 1
+max_depth : 3
+n_estimators : 600
+num_class : 10
+-------------------------------
+-------------------------------
+Run Times
+predict time : 00:00:00 s
+fit time : 00:00:00 s
+train time : 00:00:04 s
+-------------------------------
+-------------------------------
+Results
+Test Accuracy : 0.87
+Validation Accuracy : 0.82
+Train Accuracy : 0.994
+-------------------------------
+-------------------------------
+Parameters
+reg_lambda : 1
+max_delta_step : 0
+objective : multi:softprob
+colsample_bytree : 0.7
+silent : 1
+reg_alpha : 0.001
+seed : 27
+scale_pos_weight : 1
+base_score : 0.5
+gamma : 0
+learning_rate : 0.3
+missing : None
+subsample : 0.7
+min_child_weight : 1
+colsample_bylevel : 1
+max_depth : 3
+n_estimators : 13
+num_class : 10
+-------------------------------
+-------------------------------
+Run Times
+predict time : 00:00:00 s
+fit time : 00:00:00 s
+train time : 00:00:02 s
+-------------------------------
+-------------------------------
+Results
+Test Accuracy : 0.87
+Validation Accuracy : 0.82
+Train Accuracy : 0.994
+-------------------------------
+-------------------------------
+Parameters
+reg_lambda : 1
+max_delta_step : 0
+objective : multi:softprob
+colsample_bytree : 0.7
+silent : 1
+reg_alpha : 0.001
+seed : 27
+scale_pos_weight : 1
+base_score : 0.5
+gamma : 0
+learning_rate : 0.3
+missing : None
+subsample : 0.7
+min_child_weight : 1
+colsample_bylevel : 1
+max_depth : 3
+n_estimators : 13
+num_class : 10
+-------------------------------
+-------------------------------
+Run Times
+predict time : 00:00:00 s
+fit time : 00:00:00 s
+train time : 00:00:02 s
+-------------------------------
+-------------------------------
+Results
+Test Accuracy : 0.87
+Validation Accuracy : 0.82
+Train Accuracy : 0.994
+-------------------------------
+-------------------------------
+Parameters
+reg_lambda : 1
+max_delta_step : 0
+objective : multi:softprob
+colsample_bytree : 0.7
+silent : 1
+reg_alpha : 0.001
+seed : 27
+scale_pos_weight : 1
+base_score : 0.5
+gamma : 0
+learning_rate : 0.3
+missing : None
+subsample : 0.7
+min_child_weight : 1
+colsample_bylevel : 1
+max_depth : 3
+n_estimators : 13
+num_class : 10
+-------------------------------
+-------------------------------
+Parameters
+reg_lambda : 1
+max_delta_step : 0
+objective : multi:softprob
+colsample_bytree : 0.7
+silent : 1
+reg_alpha : 0.001
+seed : 27
+scale_pos_weight : 1
+base_score : 0.5
+gamma : 0
+learning_rate : 0.3
+missing : None
+subsample : 0.7
+min_child_weight : 1
+colsample_bylevel : 1
+max_depth : 3
+n_estimators : 13
+num_class : 10
+-------------------------------

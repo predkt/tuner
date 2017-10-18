@@ -1,0 +1,96 @@
+Beginning Heap
+3.5.3 |Anaconda custom (64-bit)| (default, Mar  6 2017, 11:58:13) 
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
+---------------
+Object Growth
+weakref                7623       +37
+list                  12561       +18
+function              48706       +12
+method                 1242        +5
+getset_descriptor      4458        +2
+set                    3592        +1
+ModuleReloader            6        +1
+AutoreloadMagics          6        +1
+VersionInformation        6        +1
+MetaHasTraits           182        +1
+None
+-------------------------------
+Software Versions
+Installed Versions : [('Python', '3.5.3 64bit [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]'), ('IPython', '6.1.0'), ('OS', 'Linux 3.13.0 121 generic x86_64 with debian jessie sid'), ('numpy', '1.12.1'), ('scipy', '0.19.0'), ('matplotlib', '2.0.2'), ('pandas', '0.20.1'), ('scikit-learn', '0.18.2'), ('xgboost', '0.6'), ('tensorflow', '1.2.1')]
+-------------------------------
+-------------------------------
+Run time Context
+modelpickles : savedmodels/20171016/pickled_20171016214729
+pickle : runpickles/20171016/run_20171016214729
+statsfile : stats/20171016/stats_20171016214729
+model path : savedmodels/20171016/
+runprofiles path : runprofiles/20171016/
+plot path : plots/20171016/run_214729/
+log path : logs/20171016/
+stats path : stats/20171016/
+run date : 20171016
+summary : runprofiles/20171016/summary_20171016214729.txt
+run time : 214729
+-------------------------------
+-------------------------------
+Dataset Details
+test labels : (100,)
+test dataset : (100, 784)
+training dataset : (500, 784)
+validation labels : (100,)
+validations dataset : (100, 784)
+training labels : (500,)
+-------------------------------
+-------------------------------
+ Initial Parameters
+colsample_bytree : 0.7
+objective : multi:softmax
+scale_pos_weight : 1
+reg_lambda : 1
+seed : 27
+learning_rate : 0.001
+silent : 1
+min_child_weight : 1
+max_delta_step : 0
+missing : None
+colsample_bylevel : 1
+gamma : 0
+subsample : 0.7
+reg_alpha : 0.001
+n_estimators : 1000
+num_class : 10
+base_score : 0.5
+max_depth : 3
+-------------------------------
+-------------------------------
+Run Times
+fit time : 00:00:00 s
+predict time : 00:00:00 s
+train time : 00:00:03 s
+-------------------------------
+-------------------------------
+Results
+Validation Accuracy : 0.78
+Train Accuracy : 0.926
+Test Accuracy : 0.87
+-------------------------------
+-------------------------------
+ Final Parameters
+colsample_bytree : 0.7
+objective : multi:softmax
+scale_pos_weight : 1
+reg_lambda : 1
+seed : 27
+learning_rate : 0.001
+silent : 1
+min_child_weight : 1
+max_delta_step : 0
+missing : None
+colsample_bylevel : 1
+gamma : 0
+subsample : 0.7
+reg_alpha : 0.001
+n_estimators : 21
+base_score : 0.5
+max_depth : 3
+-------------------------------

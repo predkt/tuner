@@ -5,6 +5,7 @@ import numpy as np
 import operator
 import string
 
+
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 
@@ -100,6 +101,54 @@ def write_dict(d, path, description =''):
       f.write(h_line)
     
     return(d)
+
+
+def load_dataset(name, context):
+    load_stats ={}
+    size = 50
+    image_size = 28
+    num_labels =  10
+    data = name
+
+    data_pickle_path = '../../../../tensorflow/tensorflow/examples/udacity/' + data
+
+    with open(data_pickle_path, 'rb') as f:
+        data = pickle.load(f)
+
+    train_dataset = data['train_dataset']
+    length = train_dataset.shape[0]
+
+    train_dataset = train_dataset.reshape(length, image_size*image_size)
+
+    valid_dataset = data['valid_dataset']
+    length = valid_dataset.shape[0]
+    valid_dataset = valid_dataset.reshape(length, image_size*image_size)
+
+    test_dataset = data['test_dataset']
+    length = valid_dataset.shape[0]
+    test_dataset = test_dataset.reshape(length, image_size*image_size)
+
+    valid_labels = data['valid_labels']
+    train_labels = data['train_labels']
+    test_labels = data['test_labels']
+
+    #be nice to your RAM
+    del data
+
+    load_stats.update({'training dataset': train_dataset.shape})
+    load_stats.update({'training labels': train_labels.shape})
+    load_stats.update({'validations dataset': valid_dataset.shape})
+    load_stats.update({'validation labels': valid_labels.shape})
+    load_stats.update({'test dataset': test_dataset.shape})
+    load_stats.update({'test labels': test_labels.shape})
+
+    ############## WRITE TO SUMMARY FILE
+    write_dict(load_stats, context['summary'],'Dataset Details')
+
+    datasets = [train_dataset, valid_dataset, test_dataset]
+    labels = [train_labels, valid_labels, test_labels]
+    return datasets, labels
+
 
 
 #computes max_memory and cpu usage from dictionary of measured results 
@@ -540,7 +589,302 @@ def objects_growth(path, description = ''):
     sys.stdout = orig_stdout
     #return''
 
-def modelfit(alg, datasets, labels, context, metrics, useTrainCV=True, cv_folds=3, early_stopping_rounds=20, num_labels = None):
+
+    
+parameter_ranges = {
+    'colsample_bylevel': [0.4, 1.0],
+    'colsample_bytree': [0.4, 1.0],
+    'subsample': [0.4, 1.0],
+
+    'learning_rate': [0, 1],
+    'n_estimators': [15, 1000],
+    
+    'max_depth': [1,15],
+    'min_child_weight': [1,15],
+    'gamma': [0, 1],
+
+    'reg_alpha': [-3,2],   #powers of 10
+    'reg_lambda': [-3,2]}  #powers of 10
+
+
+
+def tuner(diagnosis, in_parameters, context):
+    out_parameters = in_parameters.copy()
+    
+    if diagnosis == 'High Variance':
+    
+        #'colsample_bylevel' - reduce value to increase regularization
+        left = min(parameter_ranges['colsample_bylevel']) *100 
+        right = in_parameters['colsample_bylevel'] *100 
+        
+        if left == right:
+            new_value = left
+        else:
+            new_value = np.random.randint(left,right) 
+        
+        out_parameters.update({'colsample_bylevel': new_value/100})
+    
+        #'colsample_bytree' - reduce value to increase regularization
+        left = min(parameter_ranges['colsample_bytree']) *100 
+        right = in_parameters['colsample_bytree'] *100 
+        
+        if left == right:
+            new_value = left
+        else:
+            new_value = np.random.randint(left,right) 
+        
+        out_parameters.update({'colsample_bytree': new_value/100})
+    
+        #'subsample' - reduce value to increase regularization
+        left = min(parameter_ranges['subsample']) *100 
+        right = in_parameters['subsample'] *100 
+        
+        if left == right:
+            new_value = left
+        else:
+            new_value = np.random.randint(left,right) 
+        
+        out_parameters.update({'subsample': new_value/100})
+        
+        #'max_depth' - reduce value to decrease model complexity
+        left = min(parameter_ranges['max_depth']) 
+        right = in_parameters['max_depth'] 
+        
+        if left == right:
+            new_value = left
+        else:
+            new_value = np.random.randint(left,right) 
+
+        out_parameters.update({'max_depth': new_value})
+        
+        #'min_child_weight' - increase to reduce model complexity
+        left = in_parameters['min_child_weight'] 
+        right = max(parameter_ranges['min_child_weight']) 
+        
+        if left == right:
+            new_value = left
+        else:
+            new_value = np.random.randint(left,right) 
+            
+        out_parameters.update({'min_child_weight': new_value})
+        
+        #'gamma' - increase to reduce model complexity
+        left = in_parameters['gamma']  * 100 
+        right = max(parameter_ranges['gamma']) *100 
+        
+        if left == right:
+            new_value = left
+        else:
+            new_value = np.random.randint(left,right)  
+        
+        out_parameters.update({'gamma': new_value/100})
+        
+        #'alpha' - increase to reduce model complexity
+        left =  (np.log10(1.0 / in_parameters['reg_alpha']) * -1) 
+        right = max(parameter_ranges['reg_alpha']) 
+        
+        if left == right:
+            new_value = np.power(10, float(left))
+        else:
+            new_value = np.power(10, float(np.random.randint(left,right)))
+        
+        
+        new_value = round(new_value, 4)
+        out_parameters.update({'reg_alpha':new_value})
+        
+        #'lambda' - increase to reduce model complexity
+        left =  (np.log10(1.0 / in_parameters['reg_lambda']) * -1) 
+        right = max(parameter_ranges['reg_lambda']) 
+        
+        if left == right:
+            new_value = np.power(10, float(left))
+        else:
+            new_value = np.power(10, float(np.random.randint(left,right)))
+        
+
+        out_parameters.update({'reg_lambda': round(new_value,4)})
+    
+    
+    if diagnosis == 'High Bias':
+    
+        #'colsample_bylevel' - increase value to reduce regularization
+        left = in_parameters['colsample_bylevel'] *100 
+        right = max(parameter_ranges['colsample_bylevel']) *100 +1
+        
+        if left == right:
+            new_value = left
+        else:
+            new_value = np.random.randint(left,right) 
+        
+
+        out_parameters.update({'colsample_bylevel': new_value/100})
+    
+        #'colsample_bytree' - increase value to reduce regularization
+        left = in_parameters['colsample_bytree'] *100 
+        right = max(parameter_ranges['colsample_bytree']) *100 +1
+        
+        if left == right:
+            new_value = left
+        else:
+            new_value = np.random.randint(left,right) 
+
+        out_parameters.update({'colsample_bytree': new_value/100})
+    
+        #'subsample' - increase value to reduce regularization
+        left = in_parameters['subsample'] *100 
+        right = max(parameter_ranges['subsample']) *100 +1
+        
+        if left == right:
+            new_value = left
+        else:
+            new_value = np.random.randint(left,right) 
+        
+        out_parameters.update({'subsample': new_value/100})
+        
+        #'max_depth' - increase value to increase model complexity
+        left = in_parameters['max_depth'] 
+        right = max(parameter_ranges['max_depth']) +1
+        
+        if left == right:
+            new_value = left
+        else:
+            new_value = np.random.randint(left,right) 
+        
+        out_parameters.update({'max_depth': new_value})
+        
+        #'min_child_weight' - decrease to increase model complexity
+        right = in_parameters['min_child_weight'] 
+        left = min(parameter_ranges['min_child_weight'])
+        
+        if left == right:
+            new_value = left
+        else:
+            new_value = np.random.randint(left,right) 
+
+        out_parameters.update({'min_child_weight': new_value})
+        
+        #'gamma' - reduce to increase model complexity
+        right = in_parameters['gamma']  * 100 
+        left = min(parameter_ranges['gamma']) *100 
+        
+        if left == right:
+            new_value = left
+        else:
+            new_value = np.random.randint(left,right) 
+        
+        out_parameters.update({'gamma': new_value/100 })
+        
+        #'alpha' - decrease to increase model complexity
+        right =  (np.log10(1.0 / in_parameters['reg_alpha']) * -1) + 1 
+        left = min(parameter_ranges['reg_alpha']) 
+        
+        if left == right:
+            new_value = np.power(10, left)
+        else:
+            new_value = np.power(10, float(np.random.randint(left,right)))
+        
+        new_value = round(new_value, 4)
+        out_parameters.update({'reg_alpha':new_value})
+        
+        #'lambda' - decrease to reduce model complexity
+        right =  (np.log10(1.0 / in_parameters['reg_lambda']) * -1) + 1 
+        left = min(parameter_ranges['reg_lambda']) 
+        
+        if left == right:
+            new_value = np.power(10, left)
+        else:
+            new_value = np.power(10, float(np.random.randint(left,right)))
+        
+        out_parameters.update({'reg_lambda': round(new_value,4)})
+        
+
+    #pprint.pprint(in_parameters)
+    #pprint.pprint(out_parameters)
+    
+    return out_parameters
+
+
+
+    
+    
+    
+    
+def meter(result, context, threshold = 0.05, human_accuracy = 1.0):
+    train_accuracy = 1.0 - result[0,0]
+    valid_accuracy = 1.0 - result[0,1]
+    test_accuracy = 1.0 - result[0,2]
+    
+    
+
+    bias = abs(human_accuracy - train_accuracy)
+    variance = abs(valid_accuracy - train_accuracy)
+    
+#     print(train_accuracy,valid_accuracy,test_accuracy)
+#     print(bias,variance, threshold)
+    
+    if bias < threshold:
+        if variance < threshold:
+            return('tuned') 
+        else:
+            return('High Variance')
+    else:
+        return('High Bias')    
+    
+
+    
+    
+    
+def ngtuner( datasets, context, interval=0):
+    """Andrew Ng's recipe
+    """
+    def callback(env):
+
+        if interval > 0 and env.iteration % interval == 0:
+
+            cv = len(env.cvfolds)
+            res = np.zeros((cv,3))
+            for i, cvpack in enumerate(env.cvfolds):
+                eval_result = cvpack.bst.eval_set(datasets)
+                
+                lis = re.split(r'\\t+', str(eval_result))
+                train_s = re.split(r':+', lis[1])   
+                valid_s = re.split(r':+', lis[2]) 
+                test_s =  re.split(r':+', lis[3]) 
+
+                #print(train_s[1],valid_s[1],test_s[1])
+                res[i,0] = float(train_s[1])
+                res[i,1] = float(valid_s[1])
+                res[i,2] = float(test_s[1].rstrip("'"))
+    
+            avg = np.mean(res, axis=0)
+            avg= avg.reshape(1,3)
+            print('Average= ', avg)
+
+        
+            diag = meter(avg, context,threshold = 0.05, human_accuracy = 1.0)
+            print(diag)
+        
+            pickled = pickler(context['pickle'])
+            parameters = pickled['optimal parameters']
+            new_params = tuner(diag, parameters, context)
+            pickled = pickler(context['pickle'], new_params, 'optimal parameters')
+        
+            pprint.pprint(new_params)
+        
+            for cvpack in env.cvfolds:
+                bst = cvpack.bst
+                bst.set_param(new_params)
+            
+
+    
+    callback.before_iteration = True
+    
+    return callback
+
+    
+    
+    
+def modelfit(alg, datasets, labels, context, metrics, interval = 0, useTrainCV=True, cv_folds=3, early_stopping_rounds=20, num_labels = None):
       
     try:
           train_dataset= datasets[0]
@@ -566,15 +910,25 @@ def modelfit(alg, datasets, labels, context, metrics, useTrainCV=True, cv_folds=
 
         
         xgb_param = alg.get_xgb_params()
+        
+        write_dict(xgb_param, context['summary'],' Initial Parameters')
         xgb_param.update({'num_class': num_class})
-        write_dict(xgb_param, context['summary'],'Parameters')
+        updated_pickle = pickler(context['pickle'], xgb_param, 'optimal parameters')
 
 
         xgtrain = xgb.DMatrix(train_dataset,label=train_labels)
+        xgvalid = xgb.DMatrix(valid_dataset,label=valid_labels)
+        xgtest = xgb.DMatrix(test_dataset,label=test_labels)
+        
+        xgdataset = [(xgtrain, 'Train'),(xgvalid, 'Valid'), (xgtest, 'Test')]
+        
 
         
         cv_start_time = time.time()
-        cvresult = xgb.cv(xgb_param, xgtrain, num_boost_round=alg.get_params()['n_estimators'], nfold=cv_folds,metrics=metrics, early_stopping_rounds=early_stopping_rounds)
+        
+        cvresult = xgb.cv(xgb_param, xgtrain, num_boost_round=alg.get_params()['n_estimators'], 
+                          nfold=cv_folds,metrics=metrics, 
+                          early_stopping_rounds=early_stopping_rounds,callbacks=[ngtuner( xgdataset, context, interval)])
         cv_end_time = time.time()
         
 
@@ -641,7 +995,8 @@ def modelfit(alg, datasets, labels, context, metrics, useTrainCV=True, cv_folds=
     
     ##########Book keeping - update optimal parameters in dictionary with new boosters
     
-    parameters = xgb_param
+    pickled = pickler(context['pickle'])
+    parameters = pickled['optimal parameters']
 
     #native xgboost requires num_class, scikit_learn doesnt like it
     del parameters['num_class']
@@ -651,13 +1006,14 @@ def modelfit(alg, datasets, labels, context, metrics, useTrainCV=True, cv_folds=
 
     updated_pickle = pickler(context['pickle'], parameters, 'optimal parameters')
     updated_pickle = pickler(context['pickle'], run_stats, 'run results')
+    write_dict(parameters, context['summary'],' Final Parameters')
     
     return updated_pickle
     ########## End Book Keeping
  
 
 
-def plotCV(cvresult, optimal_boosters, context, accuracy_train = 0, accuracy_valid = 0, accuracy_test = 0,  title ='accuracy score by #estimators', ylim=(0.7,1)):
+def plotCV(cvresult, optimal_boosters, context, accuracy_train = 0, accuracy_valid = 0, accuracy_test = 0,  title ='accuracy score by #estimators', ylim=(0.0,1)):
     # ylim=(0.8,1.01)
     
     plt.rcParams['figure.figsize'] = (20,10)
