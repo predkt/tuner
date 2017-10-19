@@ -1,0 +1,14 @@
+Beginning Heap
+3.5.3 |Anaconda custom (64-bit)| (default, Mar  6 2017, 11:58:13) 
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
+---------------
+Object Growth
+weakref      7449       +28
+list        12311        +5
+dict        34656        +2
+cell        14811        +2
+method       1226        +2
+function    48589        +1
+partial        11        +1
+_Timeout        1        +1
+None

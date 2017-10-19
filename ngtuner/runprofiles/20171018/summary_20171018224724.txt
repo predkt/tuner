@@ -1,0 +1,1019 @@
+Beginning Heap
+3.5.3 |Anaconda custom (64-bit)| (default, Mar  6 2017, 11:58:13) 
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
+---------------
+Object Growth
+dict        35043       +21
+list        17825       +20
+tuple       23730       +17
+c_void_p       19       +15
+cell        14876       +12
+DMatrix        13       +10
+CVPack          5        +5
+Booster         6        +5
+function    48679        +3
+frame         137        +2
+None
+-------------------------------
+Software Versions
+Installed Versions : [('Python', '3.5.3 64bit [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]'), ('IPython', '6.1.0'), ('OS', 'Linux 3.13.0 121 generic x86_64 with debian jessie sid'), ('numpy', '1.12.1'), ('scipy', '0.19.0'), ('matplotlib', '2.0.2'), ('pandas', '0.20.1'), ('scikit-learn', '0.18.2'), ('xgboost', '0.6'), ('tensorflow', '1.2.1')]
+-------------------------------
+-------------------------------
+Run time Context
+modelpickles : savedmodels/20171018/pickled_20171018224724
+runprofiles path : runprofiles/20171018/
+run date : 20171018
+statsfile : stats/20171018/stats_20171018224724
+summary : runprofiles/20171018/summary_20171018224724.txt
+log path : logs/20171018/
+run time : 224724
+plot path : plots/20171018/run_224724/
+pickle : runpickles/20171018/run_20171018224724
+model path : savedmodels/20171018/
+stats path : stats/20171018/
+-------------------------------
+-------------------------------
+Dataset Details
+test labels : (100,)
+training labels : (500,)
+training dataset : (500, 784)
+validation labels : (100,)
+test dataset : (100, 784)
+validations dataset : (100, 784)
+-------------------------------
+-------------------------------
+ 
+         : sample-notMNIST.pickle::: interval: 0 threshold: 0.1
+-------------------------------
+-------------------------------
+ Initial Parameters
+seed : 27
+max_depth : 3
+gamma : 0
+scale_pos_weight : 1
+base_score : 0.5
+missing : None
+reg_alpha : 0.001
+silent : 1
+min_child_weight : 1
+subsample : 0.7
+n_estimators : 27
+reg_lambda : 1
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+colsample_bylevel : 1
+colsample_bytree : 0.7
+-------------------------------
+-------------------------------
+Run Times
+fit time : 00:00:00 s
+train time : 00:00:03 s
+predict time : 00:00:00 s
+-------------------------------
+-------------------------------
+Results
+Train Accuracy : 0.924
+Test Accuracy : 0.85
+Validation Accuracy : 0.78
+-------------------------------
+-------------------------------
+ Final Parameters
+max_depth : 3
+gamma : 0
+scale_pos_weight : 1
+reg_alpha : 0.001
+base_score : 0.5
+missing : None
+min_child_weight : 1
+silent : 1
+seed : 27
+subsample : 0.7
+n_estimators : 27
+reg_lambda : 1
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+colsample_bylevel : 1
+colsample_bytree : 0.7
+-------------------------------
+-------------------------------
+ 
+         : sample-notMNIST.pickle::: interval: 0 threshold: 0.05
+-------------------------------
+-------------------------------
+ Initial Parameters
+seed : 27
+max_depth : 3
+gamma : 0
+scale_pos_weight : 1
+base_score : 0.5
+missing : None
+reg_alpha : 0.001
+silent : 1
+min_child_weight : 1
+subsample : 0.7
+n_estimators : 27
+reg_lambda : 1
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+colsample_bylevel : 1
+colsample_bytree : 0.7
+-------------------------------
+-------------------------------
+Run Times
+fit time : 00:00:00 s
+train time : 00:00:03 s
+predict time : 00:00:00 s
+-------------------------------
+-------------------------------
+Results
+Train Accuracy : 0.924
+Test Accuracy : 0.85
+Validation Accuracy : 0.78
+-------------------------------
+-------------------------------
+ Final Parameters
+max_depth : 3
+gamma : 0
+scale_pos_weight : 1
+reg_alpha : 0.001
+base_score : 0.5
+missing : None
+min_child_weight : 1
+silent : 1
+seed : 27
+subsample : 0.7
+n_estimators : 27
+reg_lambda : 1
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+colsample_bylevel : 1
+colsample_bytree : 0.7
+-------------------------------
+-------------------------------
+ 
+         : sample-notMNIST.pickle::: interval: 5 threshold: 0.1
+-------------------------------
+-------------------------------
+ Initial Parameters
+seed : 27
+max_depth : 3
+gamma : 0
+scale_pos_weight : 1
+base_score : 0.5
+missing : None
+reg_alpha : 0.001
+silent : 1
+min_child_weight : 1
+subsample : 0.7
+n_estimators : 27
+reg_lambda : 1
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+colsample_bylevel : 1
+colsample_bytree : 0.7
+-------------------------------
+-------------------------------
+Mean CV Error
+train, valid, test : [[ 0.1344  0.286   0.202 ]]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : High Bias
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 5
+-------------------------------
+-------------------------------
+ Updated Parameters
+num_class : 10
+gamma : 0.0
+base_score : 0.5
+missing : None
+min_child_weight : 1
+subsample : 0.89
+n_estimators : 27
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+silent : 1
+max_depth : 9
+scale_pos_weight : 1
+colsample_bytree : 0.78
+reg_alpha : 0.001
+seed : 27
+reg_lambda : 0.01
+colsample_bylevel : 1.0
+-------------------------------
+-------------------------------
+Mean CV Error
+train, valid, test : [[ 0.0812  0.268   0.176 ]]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : High Variance
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 10
+-------------------------------
+-------------------------------
+ Updated Parameters
+num_class : 10
+gamma : 0.26
+base_score : 0.5
+missing : None
+seed : 27
+subsample : 0.63
+n_estimators : 27
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+reg_alpha : 0.001
+max_depth : 1
+scale_pos_weight : 1
+colsample_bytree : 0.74
+silent : 1
+min_child_weight : 4
+reg_lambda : 10.0
+colsample_bylevel : 0.5
+-------------------------------
+-------------------------------
+Mean CV Error
+train, valid, test : [[ 0.088  0.268  0.18 ]]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : High Variance
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 15
+-------------------------------
+-------------------------------
+ Updated Parameters
+num_class : 10
+gamma : 0.76
+base_score : 0.5
+missing : None
+min_child_weight : 13
+subsample : 0.52
+n_estimators : 27
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+reg_alpha : 0.01
+max_depth : 1
+scale_pos_weight : 1
+colsample_bytree : 0.73
+silent : 1
+seed : 27
+reg_lambda : 10.0
+colsample_bylevel : 0.46
+-------------------------------
+-------------------------------
+Mean CV Error
+train, valid, test : [[ 0.0892  0.262   0.184 ]]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : High Variance
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 20
+-------------------------------
+-------------------------------
+ Updated Parameters
+num_class : 10
+gamma : 0.79
+base_score : 0.5
+missing : None
+seed : 27
+subsample : 0.51
+n_estimators : 27
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+reg_alpha : 1.0
+max_depth : 1
+scale_pos_weight : 1
+colsample_bytree : 0.69
+silent : 1
+min_child_weight : 14
+reg_lambda : 10.0
+colsample_bylevel : 0.44
+-------------------------------
+-------------------------------
+Mean CV Error
+train, valid, test : [[ 0.096  0.262  0.182]]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : High Variance
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 25
+-------------------------------
+-------------------------------
+ Updated Parameters
+num_class : 10
+gamma : 0.94
+base_score : 0.5
+missing : None
+min_child_weight : 14
+subsample : 0.49
+n_estimators : 27
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+reg_alpha : 10.0
+max_depth : 1
+scale_pos_weight : 1
+colsample_bytree : 0.53
+silent : 1
+seed : 27
+reg_lambda : 10.0
+colsample_bylevel : 0.4
+-------------------------------
+-------------------------------
+Run Times
+fit time : 00:00:00 s
+train time : 00:00:02 s
+predict time : 00:00:00 s
+-------------------------------
+-------------------------------
+Results
+Train Accuracy : 0.924
+Test Accuracy : 0.85
+Validation Accuracy : 0.78
+-------------------------------
+-------------------------------
+ Final Parameters
+max_depth : 1
+gamma : 0.94
+scale_pos_weight : 1
+colsample_bytree : 0.53
+missing : None
+min_child_weight : 14
+reg_alpha : 10.0
+base_score : 0.5
+seed : 27
+subsample : 0.49
+n_estimators : 27
+reg_lambda : 10.0
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+colsample_bylevel : 0.4
+silent : 1
+-------------------------------
+-------------------------------
+ 
+         : sample-notMNIST.pickle::: interval: 5 threshold: 0.05
+-------------------------------
+-------------------------------
+ Initial Parameters
+seed : 27
+max_depth : 3
+gamma : 0
+scale_pos_weight : 1
+base_score : 0.5
+missing : None
+reg_alpha : 0.001
+silent : 1
+min_child_weight : 1
+subsample : 0.7
+n_estimators : 27
+reg_lambda : 1
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+colsample_bylevel : 1
+colsample_bytree : 0.7
+-------------------------------
+-------------------------------
+Mean CV Error
+train, valid, test : [[ 0.1344  0.286   0.202 ]]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : High Bias
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 5
+-------------------------------
+-------------------------------
+ Updated Parameters
+num_class : 10
+gamma : 0.0
+base_score : 0.5
+missing : None
+min_child_weight : 1
+subsample : 0.89
+n_estimators : 27
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+silent : 1
+max_depth : 9
+scale_pos_weight : 1
+colsample_bytree : 0.78
+reg_alpha : 0.001
+seed : 27
+reg_lambda : 0.01
+colsample_bylevel : 1.0
+-------------------------------
+-------------------------------
+Mean CV Error
+train, valid, test : [[ 0.0812  0.268   0.176 ]]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : High Bias
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 10
+-------------------------------
+-------------------------------
+ Updated Parameters
+num_class : 10
+gamma : 0.0
+base_score : 0.5
+missing : None
+seed : 27
+subsample : 0.92
+n_estimators : 27
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+reg_alpha : 0.001
+max_depth : 11
+scale_pos_weight : 1
+colsample_bytree : 0.88
+silent : 1
+min_child_weight : 1
+reg_lambda : 0.01
+colsample_bylevel : 1.0
+-------------------------------
+-------------------------------
+Mean CV Error
+train, valid, test : [[ 0.0728  0.27    0.174 ]]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : High Bias
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 15
+-------------------------------
+-------------------------------
+ Updated Parameters
+num_class : 10
+gamma : 0.0
+base_score : 0.5
+missing : None
+min_child_weight : 1
+subsample : 0.92
+n_estimators : 27
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+reg_alpha : 0.001
+max_depth : 14
+scale_pos_weight : 1
+colsample_bytree : 0.95
+silent : 1
+seed : 27
+reg_lambda : 0.001
+colsample_bylevel : 1.0
+-------------------------------
+-------------------------------
+Mean CV Error
+train, valid, test : [[ 0.0704  0.268   0.176 ]]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : High Bias
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 20
+-------------------------------
+-------------------------------
+ Updated Parameters
+num_class : 10
+gamma : 0.0
+base_score : 0.5
+missing : None
+seed : 27
+subsample : 0.95
+n_estimators : 27
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+reg_alpha : 0.001
+max_depth : 14
+scale_pos_weight : 1
+colsample_bytree : 0.95
+silent : 1
+min_child_weight : 1
+reg_lambda : 0.001
+colsample_bylevel : 1.0
+-------------------------------
+-------------------------------
+Mean CV Error
+train, valid, test : [[ 0.0688  0.266   0.184 ]]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : High Bias
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 25
+-------------------------------
+-------------------------------
+ Updated Parameters
+num_class : 10
+gamma : 0.0
+base_score : 0.5
+missing : None
+min_child_weight : 1
+subsample : 0.99
+n_estimators : 27
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+reg_alpha : 0.001
+max_depth : 15
+scale_pos_weight : 1
+colsample_bytree : 0.96
+silent : 1
+seed : 27
+reg_lambda : 0.001
+colsample_bylevel : 1.0
+-------------------------------
+-------------------------------
+Run Times
+fit time : 00:00:00 s
+train time : 00:00:07 s
+predict time : 00:00:00 s
+-------------------------------
+-------------------------------
+Results
+Train Accuracy : 0.924
+Test Accuracy : 0.85
+Validation Accuracy : 0.78
+-------------------------------
+-------------------------------
+ Final Parameters
+max_depth : 15
+gamma : 0.0
+scale_pos_weight : 1
+colsample_bytree : 0.96
+missing : None
+min_child_weight : 1
+reg_alpha : 0.001
+base_score : 0.5
+seed : 27
+subsample : 0.99
+n_estimators : 27
+reg_lambda : 0.001
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+colsample_bylevel : 1.0
+silent : 1
+-------------------------------
+-------------------------------
+ 
+         : sample-notMNIST.pickle::: interval: 10 threshold: 0.1
+-------------------------------
+-------------------------------
+ Initial Parameters
+seed : 27
+max_depth : 3
+gamma : 0
+scale_pos_weight : 1
+base_score : 0.5
+missing : None
+reg_alpha : 0.001
+silent : 1
+min_child_weight : 1
+subsample : 0.7
+n_estimators : 27
+reg_lambda : 1
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+colsample_bylevel : 1
+colsample_bytree : 0.7
+-------------------------------
+-------------------------------
+Mean CV Error
+train, valid, test : [[ 0.112  0.262  0.188]]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : High Bias
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 10
+-------------------------------
+-------------------------------
+ Updated Parameters
+num_class : 10
+gamma : 0.0
+base_score : 0.5
+missing : None
+min_child_weight : 1
+subsample : 0.89
+n_estimators : 27
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+silent : 1
+max_depth : 9
+scale_pos_weight : 1
+colsample_bytree : 0.78
+reg_alpha : 0.001
+seed : 27
+reg_lambda : 0.01
+colsample_bylevel : 1.0
+-------------------------------
+-------------------------------
+Mean CV Error
+train, valid, test : [[ 0.0704  0.258   0.17  ]]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : High Variance
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 20
+-------------------------------
+-------------------------------
+ Updated Parameters
+num_class : 10
+gamma : 0.26
+base_score : 0.5
+missing : None
+seed : 27
+subsample : 0.63
+n_estimators : 27
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+reg_alpha : 0.001
+max_depth : 1
+scale_pos_weight : 1
+colsample_bytree : 0.74
+silent : 1
+min_child_weight : 4
+reg_lambda : 10.0
+colsample_bylevel : 0.5
+-------------------------------
+-------------------------------
+Run Times
+fit time : 00:00:00 s
+train time : 00:00:04 s
+predict time : 00:00:00 s
+-------------------------------
+-------------------------------
+Results
+Train Accuracy : 0.924
+Test Accuracy : 0.85
+Validation Accuracy : 0.78
+-------------------------------
+-------------------------------
+ Final Parameters
+max_depth : 1
+gamma : 0.26
+scale_pos_weight : 1
+colsample_bytree : 0.74
+missing : None
+min_child_weight : 4
+silent : 1
+base_score : 0.5
+seed : 27
+subsample : 0.63
+n_estimators : 27
+reg_lambda : 10.0
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+colsample_bylevel : 0.5
+reg_alpha : 0.001
+-------------------------------
+-------------------------------
+ 
+         : sample-notMNIST.pickle::: interval: 10 threshold: 0.05
+-------------------------------
+-------------------------------
+ Initial Parameters
+seed : 27
+max_depth : 3
+gamma : 0
+scale_pos_weight : 1
+base_score : 0.5
+missing : None
+reg_alpha : 0.001
+silent : 1
+min_child_weight : 1
+subsample : 0.7
+n_estimators : 27
+reg_lambda : 1
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+colsample_bylevel : 1
+colsample_bytree : 0.7
+-------------------------------
+-------------------------------
+Mean CV Error
+train, valid, test : [[ 0.112  0.262  0.188]]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : High Bias
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 10
+-------------------------------
+-------------------------------
+ Updated Parameters
+num_class : 10
+gamma : 0.0
+base_score : 0.5
+missing : None
+min_child_weight : 1
+subsample : 0.89
+n_estimators : 27
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+silent : 1
+max_depth : 9
+scale_pos_weight : 1
+colsample_bytree : 0.78
+reg_alpha : 0.001
+seed : 27
+reg_lambda : 0.01
+colsample_bylevel : 1.0
+-------------------------------
+-------------------------------
+Mean CV Error
+train, valid, test : [[ 0.0704  0.258   0.17  ]]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : High Bias
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 20
+-------------------------------
+-------------------------------
+ Updated Parameters
+num_class : 10
+gamma : 0.0
+base_score : 0.5
+missing : None
+seed : 27
+subsample : 0.92
+n_estimators : 27
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+reg_alpha : 0.001
+max_depth : 11
+scale_pos_weight : 1
+colsample_bytree : 0.88
+silent : 1
+min_child_weight : 1
+reg_lambda : 0.01
+colsample_bylevel : 1.0
+-------------------------------
+-------------------------------
+Run Times
+fit time : 00:00:00 s
+train time : 00:00:05 s
+predict time : 00:00:00 s
+-------------------------------
+-------------------------------
+Results
+Train Accuracy : 0.924
+Test Accuracy : 0.85
+Validation Accuracy : 0.78
+-------------------------------
+-------------------------------
+ Final Parameters
+max_depth : 11
+gamma : 0.0
+scale_pos_weight : 1
+colsample_bytree : 0.88
+missing : None
+min_child_weight : 1
+silent : 1
+base_score : 0.5
+seed : 27
+subsample : 0.92
+n_estimators : 27
+reg_lambda : 0.01
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+colsample_bylevel : 1.0
+reg_alpha : 0.001
+-------------------------------
+-------------------------------
+ 
+         : sample-notMNIST.pickle::: interval: 25 threshold: 0.1
+-------------------------------
+-------------------------------
+ Initial Parameters
+seed : 27
+max_depth : 3
+gamma : 0
+scale_pos_weight : 1
+base_score : 0.5
+missing : None
+reg_alpha : 0.001
+silent : 1
+min_child_weight : 1
+subsample : 0.7
+n_estimators : 27
+reg_lambda : 1
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+colsample_bylevel : 1
+colsample_bytree : 0.7
+-------------------------------
+-------------------------------
+Mean CV Error
+train, valid, test : [[ 0.0976  0.24    0.164 ]]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : High Variance
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 25
+-------------------------------
+-------------------------------
+ Updated Parameters
+num_class : 10
+gamma : 0.98
+base_score : 0.5
+missing : None
+min_child_weight : 11
+subsample : 0.46
+n_estimators : 27
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+silent : 1
+max_depth : 2
+scale_pos_weight : 1
+colsample_bytree : 0.59
+reg_alpha : 1.0
+seed : 27
+reg_lambda : 10.0
+colsample_bylevel : 0.8
+-------------------------------
+-------------------------------
+Run Times
+fit time : 00:00:00 s
+train time : 00:00:03 s
+predict time : 00:00:00 s
+-------------------------------
+-------------------------------
+Results
+Train Accuracy : 0.924
+Test Accuracy : 0.85
+Validation Accuracy : 0.78
+-------------------------------
+-------------------------------
+ Final Parameters
+max_depth : 2
+gamma : 0.98
+scale_pos_weight : 1
+colsample_bytree : 0.59
+missing : None
+min_child_weight : 11
+reg_alpha : 1.0
+base_score : 0.5
+seed : 27
+subsample : 0.46
+n_estimators : 27
+reg_lambda : 10.0
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+colsample_bylevel : 0.8
+silent : 1
+-------------------------------
+-------------------------------
+ 
+         : sample-notMNIST.pickle::: interval: 25 threshold: 0.05
+-------------------------------
+-------------------------------
+ Initial Parameters
+seed : 27
+max_depth : 3
+gamma : 0
+scale_pos_weight : 1
+base_score : 0.5
+missing : None
+reg_alpha : 0.001
+silent : 1
+min_child_weight : 1
+subsample : 0.7
+n_estimators : 27
+reg_lambda : 1
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+colsample_bylevel : 1
+colsample_bytree : 0.7
+-------------------------------
+-------------------------------
+Mean CV Error
+train, valid, test : [[ 0.0976  0.24    0.164 ]]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : High Bias
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 25
+-------------------------------
+-------------------------------
+ Updated Parameters
+num_class : 10
+gamma : 0.0
+base_score : 0.5
+missing : None
+min_child_weight : 1
+subsample : 0.89
+n_estimators : 27
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+silent : 1
+max_depth : 9
+scale_pos_weight : 1
+colsample_bytree : 0.78
+reg_alpha : 0.001
+seed : 27
+reg_lambda : 0.01
+colsample_bylevel : 1.0
+-------------------------------
+-------------------------------
+Run Times
+fit time : 00:00:00 s
+train time : 00:00:04 s
+predict time : 00:00:00 s
+-------------------------------
+-------------------------------
+Results
+Train Accuracy : 0.924
+Test Accuracy : 0.85
+Validation Accuracy : 0.78
+-------------------------------
+-------------------------------
+ Final Parameters
+max_depth : 9
+gamma : 0.0
+scale_pos_weight : 1
+colsample_bytree : 0.78
+missing : None
+min_child_weight : 1
+reg_alpha : 0.001
+base_score : 0.5
+seed : 27
+subsample : 0.89
+n_estimators : 27
+reg_lambda : 0.01
+max_delta_step : 0
+learning_rate : 0.001
+objective : multi:softprob
+colsample_bylevel : 1.0
+silent : 1
+-------------------------------
