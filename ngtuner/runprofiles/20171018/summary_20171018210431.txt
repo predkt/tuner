@@ -1,0 +1,86 @@
+Beginning Heap
+3.5.3 |Anaconda custom (64-bit)| (default, Mar  6 2017, 11:58:13) 
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
+---------------
+Object Growth
+list    17653        +2
+None
+-------------------------------
+Software Versions
+Installed Versions : [('Python', '3.5.3 64bit [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]'), ('IPython', '6.1.0'), ('OS', 'Linux 3.13.0 121 generic x86_64 with debian jessie sid'), ('numpy', '1.12.1'), ('scipy', '0.19.0'), ('matplotlib', '2.0.2'), ('pandas', '0.20.1'), ('scikit-learn', '0.18.2'), ('xgboost', '0.6'), ('tensorflow', '1.2.1')]
+-------------------------------
+-------------------------------
+Run time Context
+modelpickles : savedmodels/20171018/pickled_20171018210431
+runprofiles path : runprofiles/20171018/
+run date : 20171018
+statsfile : stats/20171018/stats_20171018210431
+summary : runprofiles/20171018/summary_20171018210431.txt
+log path : logs/20171018/
+run time : 210431
+plot path : plots/20171018/run_210431/
+pickle : runpickles/20171018/run_20171018210431
+model path : savedmodels/20171018/
+stats path : stats/20171018/
+-------------------------------
+-------------------------------
+Dataset Details
+test labels : (100,)
+training labels : (500,)
+training dataset : (500, 784)
+validation labels : (100,)
+test dataset : (100, 784)
+validations dataset : (100, 784)
+-------------------------------
+-------------------------------
+ Initial Parameters
+seed : 27
+max_depth : 3
+gamma : 0
+scale_pos_weight : 1
+base_score : 0.5
+missing : None
+reg_alpha : 0.001
+silent : 1
+min_child_weight : 1
+subsample : 0.7
+n_estimators : 14
+reg_lambda : 1
+max_delta_step : 0
+learning_rate : 0.01
+objective : multi:softprob
+colsample_bylevel : 1
+colsample_bytree : 0.7
+-------------------------------
+-------------------------------
+Run Times
+fit time : 00:00:00 s
+train time : 00:00:02 s
+predict time : 00:00:00 s
+-------------------------------
+-------------------------------
+Results
+Train Accuracy : 0.918
+Test Accuracy : 0.82
+Validation Accuracy : 0.79
+-------------------------------
+-------------------------------
+ Final Parameters
+max_depth : 3
+gamma : 0
+scale_pos_weight : 1
+reg_alpha : 0.001
+base_score : 0.5
+missing : None
+min_child_weight : 1
+silent : 1
+seed : 27
+subsample : 0.7
+n_estimators : 14
+reg_lambda : 1
+max_delta_step : 0
+learning_rate : 0.01
+objective : multi:softprob
+colsample_bylevel : 1
+colsample_bytree : 0.7
+-------------------------------

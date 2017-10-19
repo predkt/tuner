@@ -103,6 +103,18 @@ def write_dict(d, path, description =''):
     return(d)
 
 
+
+def get_new_context(version_list):
+
+    
+    context = fetch_paths()
+    pickled = pickler(context['pickle'], context, 'run context')
+    objects_growth(context['summary'], 'Beginning Heap')
+    write_dict({'Installed Versions':version_list.__dict__['packages']}, context['summary'], 'Software Versions')
+    write_dict(context, context['summary'], 'Run time Context')
+    
+    return context
+
 def load_dataset(name, context):
     load_stats ={}
     size = 50
@@ -591,24 +603,24 @@ def objects_growth(path, description = ''):
 
 
     
-parameter_ranges = {
-    'colsample_bylevel': [0.4, 1.0],
-    'colsample_bytree': [0.4, 1.0],
-    'subsample': [0.4, 1.0],
+# parameter_ranges = {
+#     'colsample_bylevel': [0.4, 1.0],
+#     'colsample_bytree': [0.4, 1.0],
+#     'subsample': [0.4, 1.0],
 
-    'learning_rate': [0, 1],
-    'n_estimators': [15, 1000],
+#     'learning_rate': [0, 1],
+#     'n_estimators': [15, 1000],
     
-    'max_depth': [1,15],
-    'min_child_weight': [1,15],
-    'gamma': [0, 1],
+#     'max_depth': [1,15],
+#     'min_child_weight': [1,15],
+#     'gamma': [0, 1],
 
-    'reg_alpha': [-3,2],   #powers of 10
-    'reg_lambda': [-3,2]}  #powers of 10
+#     'reg_alpha': [-3,2],   #powers of 10
+#     'reg_lambda': [-3,2]}  #powers of 10
 
 
 
-def tuner(diagnosis, in_parameters, context):
+def tuner(diagnosis, in_parameters, parameter_ranges, context):
     out_parameters = in_parameters.copy()
     
     if diagnosis == 'High Variance':
@@ -809,18 +821,19 @@ def tuner(diagnosis, in_parameters, context):
     
     
     
-def meter(result, context, threshold = 0.05, human_accuracy = 1.0):
+def meter(result, context, threshold, parameter_ranges, human_accuracy = 1.0):
     train_accuracy = 1.0 - result[0,0]
     valid_accuracy = 1.0 - result[0,1]
     test_accuracy = 1.0 - result[0,2]
     
     
 
+
     bias = abs(human_accuracy - train_accuracy)
     variance = abs(valid_accuracy - train_accuracy)
     
-#     print(train_accuracy,valid_accuracy,test_accuracy)
-#     print(bias,variance, threshold)
+#     print(train_accuracy,valid_accuracy,test_accuracy)     
+    #print(bias,variance, threshold)
     
     if bias < threshold:
         if variance < threshold:
@@ -834,13 +847,18 @@ def meter(result, context, threshold = 0.05, human_accuracy = 1.0):
     
     
     
-def ngtuner( datasets, context, interval=0):
+def ngtuner( datasets, context, threshold, parameter_ranges, interval = 0 ):
     """Andrew Ng's recipe
     """
+    intervals =[0]
+    pickled = pickler(context['pickle'], intervals, 'tuner intervals')
     def callback(env):
 
-        if interval > 0 and env.iteration % interval == 0:
+        if interval > 0 and env.iteration > 0 and env.iteration % interval == 0:
 
+            
+            intervals.append(int(env.iteration))
+            pickled = pickler(context['pickle'], intervals, 'tuner intervals')
             cv = len(env.cvfolds)
             res = np.zeros((cv,3))
             for i, cvpack in enumerate(env.cvfolds):
@@ -858,18 +876,24 @@ def ngtuner( datasets, context, interval=0):
     
             avg = np.mean(res, axis=0)
             avg= avg.reshape(1,3)
-            print('Average= ', avg)
+            print('Iteration ', env.iteration)
+            print('Average Error: ', avg)
+            write_dict({'train, valid, test': avg}, context['summary'],'Mean CV Error')
 
         
-            diag = meter(avg, context,threshold = 0.05, human_accuracy = 1.0)
+            diag = meter(avg, context, threshold, parameter_ranges, human_accuracy = 1.0)
             print(diag)
+            write_dict({'diagnosis': diag}, context['summary'],' Diagnosis')
         
             pickled = pickler(context['pickle'])
             parameters = pickled['optimal parameters']
-            new_params = tuner(diag, parameters, context)
+            new_params = tuner(diag, parameters, parameter_ranges, context)
             pickled = pickler(context['pickle'], new_params, 'optimal parameters')
         
-            pprint.pprint(new_params)
+            #pprint.pprint(new_params)
+            
+            write_dict({'iteration': env.iteration}, context['summary'],' Tuning Iteration')
+            write_dict(new_params, context['summary'],' Updated Parameters')
         
             for cvpack in env.cvfolds:
                 bst = cvpack.bst
@@ -879,19 +903,23 @@ def ngtuner( datasets, context, interval=0):
     
     callback.before_iteration = True
     
+
+
+    
     return callback
 
     
     
     
-def modelfit(alg, datasets, labels, context, metrics, interval = 0, useTrainCV=True, cv_folds=3, early_stopping_rounds=20, num_labels = None):
+def modelfit(alg, datasets, labels, context, metrics, title,parameter_ranges, interval = 0, threshold = 0.10, useTrainCV=True, cv_folds=3, early_stopping_rounds=20, num_labels = None):
       
     try:
-          train_dataset= datasets[0]
-          train_labels = labels[0]
+        train_dataset= datasets[0]
+        train_labels = labels[0]
+    
     except Exception as e:
-          print('Unable to save data to load training samples', e)
-          raise
+        print('Unable to save data to load training samples', e)
+        raise
     
     valid_dataset = datasets[1]
     test_dataset = datasets[2]
@@ -910,7 +938,7 @@ def modelfit(alg, datasets, labels, context, metrics, interval = 0, useTrainCV=T
 
         
         xgb_param = alg.get_xgb_params()
-        
+        write_dict({'        ' : title}, context['summary'],' ')
         write_dict(xgb_param, context['summary'],' Initial Parameters')
         xgb_param.update({'num_class': num_class})
         updated_pickle = pickler(context['pickle'], xgb_param, 'optimal parameters')
@@ -928,7 +956,8 @@ def modelfit(alg, datasets, labels, context, metrics, interval = 0, useTrainCV=T
         
         cvresult = xgb.cv(xgb_param, xgtrain, num_boost_round=alg.get_params()['n_estimators'], 
                           nfold=cv_folds,metrics=metrics, 
-                          early_stopping_rounds=early_stopping_rounds,callbacks=[ngtuner( xgdataset, context, interval)])
+                          early_stopping_rounds=early_stopping_rounds,
+                          callbacks=[ngtuner( xgdataset, context,threshold,parameter_ranges, interval )])
         cv_end_time = time.time()
         
 
@@ -988,9 +1017,13 @@ def modelfit(alg, datasets, labels, context, metrics, interval = 0, useTrainCV=T
      
     write_dict(run_stats, context['summary'], 'Results')
     pickled = pickler(context['pickle'], run_stats, 'model results')
-    
 
-    plotCV(cvresult, optimal_boosters, context, acc_score_train, acc_score_valid, acc_score_test)
+        
+    intervals = pickled['tuner intervals']
+    intervals.append(optimal_boosters)
+    #print(intervals)
+
+    plotCV(cvresult, optimal_boosters, context, intervals, acc_score_train, acc_score_valid, acc_score_test, title)
     
     
     ##########Book keeping - update optimal parameters in dictionary with new boosters
@@ -1013,7 +1046,7 @@ def modelfit(alg, datasets, labels, context, metrics, interval = 0, useTrainCV=T
  
 
 
-def plotCV(cvresult, optimal_boosters, context, accuracy_train = 0, accuracy_valid = 0, accuracy_test = 0,  title ='accuracy score by #estimators', ylim=(0.0,1)):
+def plotCV(cvresult, optimal_boosters, context, intervals, accuracy_train = 0, accuracy_valid = 0, accuracy_test = 0,  title ='accuracy score by #estimators', ylim=(0.5,1)):
     # ylim=(0.8,1.01)
     
     plt.rcParams['figure.figsize'] = (20,10)
@@ -1071,7 +1104,10 @@ def plotCV(cvresult, optimal_boosters, context, accuracy_train = 0, accuracy_val
 
 
     plt.axhline(y = 1, color='k', ls ='dashed')
-    plt.axvline(x = optimal_boosters, ls ='dashed', label ='#estimators ' + str(optimal_boosters))
+    
+    for interval in intervals:
+        
+        plt.axvline(x = interval, ls ='dashed')
 
     
     plt.plot(optimal_boosters, float(accuracy_train), 'b^', label = 'Train Accuracy: ' + str(accuracy_train))
@@ -1100,41 +1136,7 @@ def plotCV(cvresult, optimal_boosters, context, accuracy_train = 0, accuracy_val
     pickled = pickler(context['pickle'], save_file, 'accuracy plot')
 
 
-def extend_single_param(result, delta_step, allowed_range, seen):
-    
-    new_list ={'left': round(result - delta_step, 2), 'right': round(result + delta_step, 2)}
-    
-    
-    if new_list['left'] <= allowed_range[0] or new_list['left'] in seen:
-        del new_list['left']
-    
-    if new_list['right'] > allowed_range[1] or new_list['right'] in seen:
-        del new_list['right']
-    
-    return list(new_list.values())
 
-
-
-def extend_param_dict(current_best, steps, allowed_ranges, seen):
-    #first find the extended range for each parameter
-    # step and allowed range and dictionaries for values for each tunable parameters
-    parameters ={}
-    for k, v in current_best.items():
-        seen_list = seen[k]
-        step =steps[k]
-        allowed_range = allowed_ranges[k]
-        print('parameter', k)
-        print('result:',v,' step:', step,' allowed_range:', allowed_range,' seen:', seen_list)
-        new_range = extend_single_param( v, step, allowed_range, seen_list)
-        print(new_range)
-        parameters.update({k:new_range})
-    
-    #iterate through new parameters - if none, set to incoming current best value
-    
-    for k, v in parameters.items():
-        if not v: parameters[k] = [current_best[k]]
-        
-    return parameters
 
 
 def remove_duplicates(inlist):
@@ -1146,232 +1148,9 @@ def remove_duplicates(inlist):
     return outlist
     
 
-def tuner_cv(estimator, train_set, train_labels, val_set, val_labels, param_test, tuning_rounds, steps, allowed_ranges, context, scoring ='accuracy', cv = 3, val_tuned =True):
-    
-    
-    tuning_results_params ={}
-    tuning_results_accuracy ={}
-    tuning_validation_accuracy ={}
-    rounds_to_tune = tuning_rounds
-
-    current_tuning_round = 0
-    
-    pickled = pickler(context['pickle'])
-    parameters = pickled['optimal parameters']
-#     estimator = XGBClassifier(**parameters)
-    estimator = estimator
-
-    tuned = False
-    param_test = param_test
-    seen = param_test
-
-
-    while not tuned:
-    
-        loop_result =()
-        
-        #update seen with parameters already tested
-        seen = { k:  seen[k] + param_test[k]  for k in seen }
-        seen = { k:  remove_duplicates(seen[k]) for k in seen }
-        
-        # Remove the duplicates
-        #seen = list(set(seen))
-    
-        gsearch = GridSearchCV(estimator = estimator, 
-                        param_grid = param_test, 
-                        scoring= scoring,
-                        n_jobs= -1,
-                        cv= cv)
-
-        loop_result = gsearch.fit(train_set, train_labels)
-        
-        # plot cv results
-        tuner_plot = plot_grid_search(loop_result, param_test, context)
-        
-        # score on the validation dataset
-        loop_result_val = loop_result.score(val_set, val_labels)
-
-        tuning_results_params.update({'iter'+str(current_tuning_round): loop_result.best_params_ })
-        tuning_results_accuracy.update({'iter'+str(current_tuning_round): loop_result.best_score_ })
-        tuning_validation_accuracy.update({'iter'+str(current_tuning_round): loop_result_val })
-    
-        print('Current Iteration ', loop_result.best_params_ , ' CV Accuracy ', loop_result.best_score_, ' Validation Accuracy ', loop_result_val)
-    
-    
-        current_tuning_round = current_tuning_round + 1
-    
-        param_test = extend_param_dict(loop_result.best_params_, steps, allowed_ranges, seen)
-        print("Extended List :", param_test)
-        print('-------------------------------')
-    
-        #convert result dict values into list for comparison
-        best_params_list ={k: [loop_result.best_params_ [k]] for k in loop_result.best_params_ }
-        if param_test == best_params_list : tuned = True
-        if current_tuning_round == rounds_to_tune:  tuned = True
-    
-
-    
-    ##END WHILE TUNED  
-    write_dict(seen, context['summary'],'Tested Values')
-
-    #prepare dict for writing to file
-    tuner_results_summary ={key: str(tuning_results_params[key]) + '  CV Accuracy: ' + str(tuning_results_accuracy[key]) + '  Validation Accuracy: ' + str(tuning_validation_accuracy[key]) for key in tuning_results_params.keys() }
-
-    #compute the highest  CV accuracy 
-    max_accuracy_key =max(tuning_results_accuracy, key=lambda key: tuning_results_accuracy[key])  
-    
-    #compute the highest Validation accuracy 
-    if val_tuned: max_accuracy_key =max(tuning_validation_accuracy, key=lambda key: tuning_validation_accuracy[key])  
-
-    
-    # use CV accuracy for tuning
-    #tuning_results_params[max_accuracy_key]
-    
-    # use Validation accuracy for traiing
-    tuning_results_params[max_accuracy_key]
-
-    #pprint.pprint(tuner_results_summary)
-    write_dict(tuner_results_summary, context['summary'], 'Tuning Iterations')
-    write_dict({'Chosen:': str(tuning_results_params[max_accuracy_key]) + ' CV Accuracy: ' + str(tuning_results_accuracy[max_accuracy_key]) + ' Validation Accuracy: ' + str(tuning_validation_accuracy[max_accuracy_key])}, context['summary'])
-    
-
-    # Get the optimal parameters from the run
-    
-    # use Validation accuracy
-    params_to_update = tuning_results_params[max_accuracy_key]
-
-    # Update the parameters list with the new updated values for the params tested
-    parameters.update({k: params_to_update[k] for k in params_to_update.keys()})
-
-    # Update the pickle
-    updated_pickle = pickler(context['pickle'], parameters, 'optimal parameters')
-
-
-    
-    
-    
-def plot_grid_search(tuner_results, param_grid, context):
-    
-    plt.style.use('seaborn-colorblind')
-    plt.rcParams['figure.figsize'] = (20,10)
-    sns.set_style("whitegrid")
-    watermark = mpimg.imread('../images/current_logo_gray.png')
-    #titlefont = {'fontname':'COUR'}
-    
-    
-    #plots only the first two parameters
-    #check to ensure only two parameters are supplied
-    # catch 0 or > 2 parameters
-    
-    cv_results = tuner_results.cv_results_
-
-    
-
-    param_values =[]
-    param_names =[]
-    best_x = 0.0
-    best_y = 0.0
-    
-    # if grid search on just one parameter
-    if len(param_grid) == 1:
-        
-        scores_mean = np.array(cv_results['mean_test_score'])
-        scores_sd = np.array(cv_results['std_test_score'])
-        
-        #get the value of a single item dict
-        param_values = next(iter(param_grid.values()))
-        param_name = next(iter(param_grid.keys()))
-        
-        #_, ax = plt.subplots(1,1)
-        fig = plt.figure()
-        
-        
-        plt.plot(param_values, scores_mean, '-o', label= param_name)
-        
-        plt.fill_between(param_values,
-                scores_mean + scores_sd,
-                scores_mean - scores_sd,
-                alpha =0.2)
-        
-        
-        best_x = float(next(iter(tuner_results.best_params_.values())))
-        best_y = float(tuner_results.best_score_)
-        
-        #ax.plot(best_x, best_y, 'g^', markersize=10,  label = 'Chosen Value ' + str(best_x) + ' Acc: ' + str(best_y))
-        
-        plt.title('tuned to ' + str(param_name))
-        plt.xlabel(str(param_name))
-        
-
-    
-    # if grid search on 2 parameters
-    if len(param_grid) == 2:
-        
-        for k, v in param_grid.items():
-            param_values.append(v)
-            param_names.append(k)
-        
-        
-        best_x = tuner_results.best_params_[param_names[0]]
-        best_y = float(tuner_results.best_score_)
-            
-    
-
-        # Get Test Scores Mean and std for each grid search
-        scores_mean = cv_results['mean_test_score']
-        scores_mean = np.array(scores_mean).reshape(len(param_values[0]),len(param_values[1]))
-
-        scores_sd = cv_results['std_test_score']
-        scores_sd = np.array(scores_sd).reshape(len(param_values[0]),len(param_values[1]))
-
-        # Plot Grid search scores
-        # _, ax = plt.subplots(1,1)
-        fig = plt.figure()
-
-        # Param1 is the X-axis, Param 2 is represented as a different curve (color line)
-        for idx, val in enumerate(param_values[1]):
-        
-            plt.plot(param_values[0], scores_mean[:, idx], '-o', label= param_names[1] + ': ' + str(val))
-            sd = scores_sd[:, idx]
-        
-            plt.fill_between(param_values[0],
-                scores_mean[:, idx] + sd,
-                scores_mean[:, idx] - sd,
-                alpha =0.2)
-            plt.title('tuning results for ' + str(param_names[0]) + ' & ' + str(param_names[1]))
-            plt.xlabel(param_names[0])
-            
-    
-    plt.plot(best_x, best_y, 'g^', markersize=10,  label = 'tuned to ' + str(tuner_results.best_params_) + '.  acc: ' + str(best_y))
-    plt.ylabel('accuracy')
-    
-    
-    
-    x_axis_range = plt.xlim()
-    y_axis_range = plt.ylim()
-
-    
-    imgplot = plt.imshow(watermark, aspect = 'auto', extent=(x_axis_range[0], x_axis_range[1],  y_axis_range[0],  y_axis_range[1]), zorder= - 1, alpha =0.1)
-    
-    plt.legend(loc='best')
-    
-#     plt.legend(frameon=True)
-#     leg = plt.legend()
-#     leg.draw_frame(True)
-#     leg.get_frame().set_edgecolor('b')
-    
   
     
-    now = time.strftime("%H%M%S",time.gmtime())
-    save_file = context['plot path'] + now + '.png'
     
-    plt.text(x_axis_range[0], y_axis_range[0], save_file, color='gray', fontsize=8)
-    
-    plt.show()
-    fig.savefig(save_file, bbox_inches='tight')
-    
-    return save_file
-
 
 def show_random_samples(image_size, dataset, labels, description, context, rows = 1, cols=10):
     
@@ -1410,7 +1189,7 @@ def show_random_samples(image_size, dataset, labels, description, context, rows 
                 sample_image = dataset[sample_idx, :] 
                 a=fig.add_subplot(rows + footer_height, cols, counter)
                 sample_image = sample_image.reshape(image_size, image_size)
-                plt.axis('off')
+                #plt.axis('off')
                 plt.imshow(sample_image)
                 a.set_title(label_list[sample_label], fontsize=12, weight = 'bold',color = 'r')
                 counter+=1
@@ -1427,7 +1206,7 @@ def show_random_samples(image_size, dataset, labels, description, context, rows 
                 sample_image = dataset[sample_idx, :] 
                 b=fig.add_subplot(rows + footer_height, cols, counter)
                 sample_image = sample_image.reshape(image_size, image_size)
-                plt.axis('off')
+                #plt.axis('off')
                 plt.imshow(sample_image,cmap='Greys_r')
                 plt.tight_layout()
                 b.set_title(counts[sample_label], fontsize=15, weight = 'bold',color = '#351c4d')
