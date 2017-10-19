@@ -1,0 +1,167 @@
+Beginning Heap
+3.5.3 |Anaconda custom (64-bit)| (default, Mar  6 2017, 11:58:13) 
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
+---------------
+Object Growth
+list       14079        +1
+weakref     7551        +1
+tuple      23685        +1
+None
+-------------------------------
+Software Versions
+Installed Versions : [('Python', '3.5.3 64bit [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]'), ('IPython', '6.1.0'), ('OS', 'Linux 3.13.0 121 generic x86_64 with debian jessie sid'), ('numpy', '1.12.1'), ('scipy', '0.19.0'), ('matplotlib', '2.0.2'), ('pandas', '0.20.1'), ('scikit-learn', '0.18.2'), ('xgboost', '0.6'), ('tensorflow', '1.2.1')]
+-------------------------------
+-------------------------------
+Run time Context
+modelpickles : savedmodels/20171018/pickled_20171018202951
+runprofiles path : runprofiles/20171018/
+run date : 20171018
+statsfile : stats/20171018/stats_20171018202951
+summary : runprofiles/20171018/summary_20171018202951.txt
+log path : logs/20171018/
+run time : 202951
+plot path : plots/20171018/run_202951/
+pickle : runpickles/20171018/run_20171018202951
+model path : savedmodels/20171018/
+stats path : stats/20171018/
+-------------------------------
+-------------------------------
+Dataset Details
+test labels : (100,)
+training labels : (500,)
+training dataset : (500, 784)
+validation labels : (100,)
+test dataset : (100, 784)
+validations dataset : (100, 784)
+-------------------------------
+-------------------------------
+ Initial Parameters
+seed : 27
+max_depth : 3
+gamma : 0
+scale_pos_weight : 1
+base_score : 0.5
+missing : None
+reg_alpha : 0.001
+silent : 1
+min_child_weight : 1
+subsample : 0.7
+n_estimators : 14
+reg_lambda : 1
+max_delta_step : 0
+learning_rate : 0.01
+objective : multi:softprob
+colsample_bylevel : 1
+colsample_bytree : 0.7
+-------------------------------
+-------------------------------
+Mean CV Error
+mean error : [[ 0.9  0.9  0.9]]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : High Bias
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 0
+-------------------------------
+-------------------------------
+ Updated Parameters
+num_class : 10
+gamma : 0.0
+base_score : 0.5
+missing : None
+min_child_weight : 1
+subsample : 0.89
+n_estimators : 14
+max_delta_step : 0
+learning_rate : 0.01
+objective : multi:softprob
+reg_alpha : 0.001
+max_depth : 9
+scale_pos_weight : 1
+colsample_bytree : 0.78
+silent : 1
+seed : 27
+reg_lambda : 0.01
+colsample_bylevel : 1.0
+-------------------------------
+-------------------------------
+Mean CV Error
+mean error : [[ 0.074  0.278  0.212]]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : High Variance
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 5
+-------------------------------
+-------------------------------
+ Updated Parameters
+num_class : 10
+gamma : 0.26
+base_score : 0.5
+missing : None
+min_child_weight : 4
+subsample : 0.63
+n_estimators : 14
+max_delta_step : 0
+learning_rate : 0.01
+objective : multi:softprob
+silent : 1
+max_depth : 1
+scale_pos_weight : 1
+colsample_bytree : 0.74
+reg_alpha : 0.001
+seed : 27
+reg_lambda : 10.0
+colsample_bylevel : 0.5
+-------------------------------
+-------------------------------
+Mean CV Error
+mean error : [[ 0.0836  0.266   0.212 ]]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : High Variance
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 10
+-------------------------------
+-------------------------------
+ Updated Parameters
+num_class : 10
+gamma : 0.76
+base_score : 0.5
+missing : None
+min_child_weight : 13
+subsample : 0.52
+n_estimators : 14
+max_delta_step : 0
+learning_rate : 0.01
+objective : multi:softprob
+reg_alpha : 0.01
+max_depth : 1
+scale_pos_weight : 1
+colsample_bytree : 0.73
+silent : 1
+seed : 27
+reg_lambda : 10.0
+colsample_bylevel : 0.46
+-------------------------------
+-------------------------------
+Run Times
+fit time : 00:00:00 s
+train time : 00:00:01 s
+predict time : 00:00:00 s
+-------------------------------
+-------------------------------
+Results
+Train Accuracy : 0.918
+Test Accuracy : 0.82
+Validation Accuracy : 0.79
+-------------------------------
