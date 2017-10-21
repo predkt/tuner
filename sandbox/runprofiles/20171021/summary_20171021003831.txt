@@ -1,0 +1,60 @@
+Beginning Heap
+3.5.3 |Anaconda custom (64-bit)| (default, Mar  6 2017, 11:58:13) 
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
+---------------
+Object Growth
+traceback                 9        +2
+Num                      18        +1
+IncrementalEncoder        6        +1
+weakref                7416        +1
+FileIO                   14        +1
+TextIOWrapper             7        +1
+BufferedWriter            6        +1
+None
+-------------------------------
+Software Versions
+Installed Versions : [('Python', '3.5.3 64bit [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]'), ('IPython', '6.1.0'), ('OS', 'Linux 3.13.0 121 generic x86_64 with debian jessie sid'), ('numpy', '1.12.1'), ('scipy', '0.19.0'), ('matplotlib', '2.0.2'), ('pandas', '0.20.1'), ('scikit-learn', '0.18.2'), ('xgboost', '0.6'), ('tensorflow', '1.2.1')]
+-------------------------------
+-------------------------------
+Run time Context
+stats path : stats/20171021/
+runprofiles path : runprofiles/20171021/
+model path : savedmodels/20171021/
+plot path : plots/20171021/run_003831/
+log path : logs/20171021/
+statsfile : stats/20171021/stats_20171021003831
+run date : 20171021
+modelpickles : savedmodels/20171021/pickled_20171021003831
+pickle : runpickles/20171021/run_20171021003831
+run time : 003831
+summary : runprofiles/20171021/summary_20171021003831.txt
+-------------------------------
+-------------------------------
+Dataset Details
+training labels : (20000,)
+validation labels : (10000,)
+test dataset : (10000, 784)
+training dataset : (20000, 784)
+test labels : (10000,)
+validations dataset : (10000, 784)
+-------------------------------
+-------------------------------
+ 
+         : notMNIST20-10-10.pickle::: interval: 5000 threshold: 0.5
+-------------------------------
+-------------------------------
+ Initial Parameters
+n_estimators : 5000
+colsample_bytree : 0.7
+num_class : 10
+colsample_bylevel : 0.7
+gamma : 0
+subsample : 0.7
+learning_rate : 0.001
+objective : multi:softmax
+max_depth : 3
+seed : 27
+reg_alpha : 0.001
+reg_lambda : 1
+min_child_weight : 1
+-------------------------------

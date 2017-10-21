@@ -1,0 +1,396 @@
+Beginning Heap
+3.5.3 |Anaconda custom (64-bit)| (default, Mar  6 2017, 11:58:13) 
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
+---------------
+Object Growth
+dict         34856       +62
+list         12376       +31
+cell         14873       +15
+tuple        23453       +14
+Name            50       +13
+_FuncPtr        18       +12
+keyword          9        +9
+frame          116        +8
+traceback        7        +6
+function     48650        +6
+None
+-------------------------------
+Software Versions
+Installed Versions : [('Python', '3.5.3 64bit [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]'), ('IPython', '6.1.0'), ('OS', 'Linux 3.13.0 121 generic x86_64 with debian jessie sid'), ('numpy', '1.12.1'), ('scipy', '0.19.0'), ('matplotlib', '2.0.2'), ('pandas', '0.20.1'), ('scikit-learn', '0.18.2'), ('xgboost', '0.6'), ('tensorflow', '1.2.1')]
+-------------------------------
+-------------------------------
+Run time Context
+stats path : stats/20171021/
+runprofiles path : runprofiles/20171021/
+model path : savedmodels/20171021/
+plot path : plots/20171021/run_002832/
+log path : logs/20171021/
+statsfile : stats/20171021/stats_20171021002832
+run date : 20171021
+modelpickles : savedmodels/20171021/pickled_20171021002832
+pickle : runpickles/20171021/run_20171021002832
+run time : 002832
+summary : runprofiles/20171021/summary_20171021002832.txt
+-------------------------------
+-------------------------------
+Dataset Details
+training labels : (50000,)
+validation labels : (15000,)
+test dataset : (15000, 784)
+training dataset : (50000, 784)
+test labels : (15000,)
+validations dataset : (15000, 784)
+-------------------------------
+-------------------------------
+ 
+         : notMNIST50-15-15.pickle::: interval: 5 threshold: 0.1
+-------------------------------
+-------------------------------
+ Initial Parameters
+n_estimators : 5000
+colsample_bytree : 0.7
+num_class : 10
+colsample_bylevel : 0.7
+gamma : 0
+subsample : 0.7
+learning_rate : 0.01
+objective : multi:softmax
+max_depth : 3
+seed : 27
+reg_alpha : 0.001
+reg_lambda : 1
+min_child_weight : 1
+-------------------------------
+-------------------------------
+ merrors
+train, valid, test : [0.24974, 0.262733, 0.1856]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : High Bias
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 5
+-------------------------------
+-------------------------------
+ Updated Parameters
+n_estimators : 5000
+colsample_bytree : 0.86
+num_class : 10
+colsample_bylevel : 0.98
+gamma : 0.0
+subsample : 0.8
+learning_rate : 0.01
+objective : multi:softmax
+reg_alpha : 0.001
+seed : 27
+max_depth : 3
+reg_lambda : 1.0
+min_child_weight : 1
+-------------------------------
+-------------------------------
+ merrors
+train, valid, test : [0.2441, 0.2592, 0.183467]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : High Bias
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 10
+-------------------------------
+-------------------------------
+ Updated Parameters
+n_estimators : 5000
+colsample_bytree : 0.88
+num_class : 10
+colsample_bylevel : 0.98
+gamma : 0.0
+subsample : 0.87
+reg_lambda : 0.01
+objective : multi:softmax
+reg_alpha : 0.001
+seed : 27
+max_depth : 4
+learning_rate : 0.01
+min_child_weight : 1
+-------------------------------
+-------------------------------
+ merrors
+train, valid, test : [0.22582, 0.2436, 0.167533]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : High Bias
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 15
+-------------------------------
+-------------------------------
+ Updated Parameters
+n_estimators : 5000
+colsample_bytree : 0.99
+num_class : 10
+colsample_bylevel : 0.98
+gamma : 0.0
+subsample : 0.98
+learning_rate : 0.01
+objective : multi:softmax
+reg_alpha : 0.001
+seed : 27
+max_depth : 8
+reg_lambda : 0.01
+min_child_weight : 1
+-------------------------------
+-------------------------------
+ merrors
+train, valid, test : [0.15888, 0.205067, 0.128333]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : High Bias
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 20
+-------------------------------
+-------------------------------
+ Updated Parameters
+n_estimators : 5000
+colsample_bytree : 1.0
+num_class : 10
+colsample_bylevel : 1.0
+gamma : 0.0
+subsample : 1.0
+reg_lambda : 0.01
+objective : multi:softmax
+reg_alpha : 0.001
+seed : 27
+max_depth : 11
+learning_rate : 0.01
+min_child_weight : 1
+-------------------------------
+-------------------------------
+ merrors
+train, valid, test : [0.09494, 0.183467, 0.110067]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : tuned
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 25
+-------------------------------
+-------------------------------
+ Updated Parameters
+n_estimators : 5000
+colsample_bytree : 1.0
+num_class : 10
+colsample_bylevel : 1.0
+gamma : 0.0
+subsample : 1.0
+learning_rate : 0.01
+objective : multi:softmax
+reg_alpha : 0.001
+seed : 27
+max_depth : 11
+reg_lambda : 0.01
+min_child_weight : 1
+-------------------------------
+-------------------------------
+ merrors
+train, valid, test : [0.06654, 0.1742, 0.103067]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : High Variance
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 30
+-------------------------------
+-------------------------------
+ Updated Parameters
+n_estimators : 5000
+colsample_bytree : 0.64
+num_class : 10
+colsample_bylevel : 0.72
+gamma : 0.39
+subsample : 0.81
+reg_lambda : 10.0
+objective : multi:softmax
+reg_alpha : 1.0
+seed : 27
+max_depth : 1
+learning_rate : 0.01
+min_child_weight : 7
+-------------------------------
+-------------------------------
+ merrors
+train, valid, test : [0.07238, 0.1746, 0.104733]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : High Variance
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 35
+-------------------------------
+-------------------------------
+ Updated Parameters
+n_estimators : 5000
+colsample_bytree : 0.46
+num_class : 10
+colsample_bylevel : 0.42
+gamma : 0.68
+subsample : 0.55
+learning_rate : 0.01
+objective : multi:softmax
+reg_alpha : 1.0
+seed : 27
+max_depth : 1
+reg_lambda : 10.0
+min_child_weight : 10
+-------------------------------
+-------------------------------
+ merrors
+train, valid, test : [0.07782, 0.176933, 0.1056]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : tuned
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 40
+-------------------------------
+-------------------------------
+ Updated Parameters
+n_estimators : 5000
+colsample_bytree : 0.46
+num_class : 10
+colsample_bylevel : 0.42
+gamma : 0.68
+subsample : 0.55
+reg_lambda : 10.0
+objective : multi:softmax
+reg_alpha : 1.0
+seed : 27
+max_depth : 1
+learning_rate : 0.01
+min_child_weight : 10
+-------------------------------
+-------------------------------
+ merrors
+train, valid, test : [0.0831, 0.177667, 0.1074]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : tuned
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 45
+-------------------------------
+-------------------------------
+ Updated Parameters
+n_estimators : 5000
+colsample_bytree : 0.46
+num_class : 10
+colsample_bylevel : 0.42
+gamma : 0.68
+subsample : 0.55
+learning_rate : 0.01
+objective : multi:softmax
+reg_alpha : 1.0
+seed : 27
+max_depth : 1
+reg_lambda : 10.0
+min_child_weight : 10
+-------------------------------
+-------------------------------
+ merrors
+train, valid, test : [0.08894, 0.179533, 0.108067]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : tuned
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 50
+-------------------------------
+-------------------------------
+ Updated Parameters
+n_estimators : 5000
+colsample_bytree : 0.46
+num_class : 10
+colsample_bylevel : 0.42
+gamma : 0.68
+subsample : 0.55
+reg_lambda : 10.0
+objective : multi:softmax
+reg_alpha : 1.0
+seed : 27
+max_depth : 1
+learning_rate : 0.01
+min_child_weight : 10
+-------------------------------
+-------------------------------
+ merrors
+train, valid, test : [0.0939, 0.180933, 0.1094]
+-------------------------------
+-------------------------------
+ Diagnosis
+diagnosis : tuned
+-------------------------------
+-------------------------------
+ Tuning Iteration
+iteration : 55
+-------------------------------
+-------------------------------
+ Updated Parameters
+n_estimators : 5000
+colsample_bytree : 0.46
+num_class : 10
+colsample_bylevel : 0.42
+gamma : 0.68
+subsample : 0.55
+learning_rate : 0.01
+objective : multi:softmax
+reg_alpha : 1.0
+seed : 27
+max_depth : 1
+reg_lambda : 10.0
+min_child_weight : 10
+-------------------------------
+-------------------------------
+Run Times
+fit time : 00:00:00 s
+predict time : 00:00:00 s
+train time : 00:00:35 s
+-------------------------------
+-------------------------------
+Results
+-------------------------------
+-------------------------------
+ Final Parameters
+n_estimators : 31
+colsample_bytree : 0.46
+num_class : 10
+colsample_bylevel : 0.42
+gamma : 0.68
+subsample : 0.55
+learning_rate : 0.01
+objective : multi:softmax
+reg_alpha : 1.0
+seed : 27
+max_depth : 1
+reg_lambda : 10.0
+min_child_weight : 10
+-------------------------------

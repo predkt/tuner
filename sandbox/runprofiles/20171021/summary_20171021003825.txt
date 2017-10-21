@@ -1,0 +1,9 @@
+Beginning Heap
+3.5.3 |Anaconda custom (64-bit)| (default, Mar  6 2017, 11:58:13) 
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
+---------------
+Object Growth
+[0]	Train-merror:0.2887	Test-merror:0.2259	Valid-merror:0.3055
+Multiple eval metrics have been passed: 'Valid-merror' will be used for early stopping.
+
+Will train until Valid-merror hasn't improved in 5020 rounds.

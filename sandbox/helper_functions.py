@@ -932,6 +932,9 @@ def modelfit(params, datasets, labels, context, title, parameter_ranges, interva
 
         
         xgb_param = params
+        intervals =[interval]
+        pickled = pickler(context['pickle'], intervals, 'tuner intervals')
+    
         write_dict({'        ' : title}, context['summary'],' ')
         write_dict(xgb_param, context['summary'],' Initial Parameters')
         #xgb_param.update({'num_class': num_class})
@@ -948,9 +951,17 @@ def modelfit(params, datasets, labels, context, title, parameter_ranges, interva
 
         
         cv_start_time = time.time()
-        cvresult = xgb.train(xgb_param, xgtrain, num_boost_round=params['n_estimators'], evals = xgdataset,
+        if interval ==0:
+            cvresult = xgb.train(xgb_param, xgtrain, num_boost_round=params['n_estimators'], evals = xgdataset,
+                          evals_result = training_results, early_stopping_rounds=early_stopping_rounds,verbose_eval=10)
+        
+               
+                
+        else:
+            cvresult = xgb.train(xgb_param, xgtrain, num_boost_round=params['n_estimators'], evals = xgdataset,
                           evals_result = training_results, early_stopping_rounds=early_stopping_rounds,verbose_eval=interval,
                           callbacks=[ngtuner( xgdataset, context, threshold, parameter_ranges, training_results, interval)])
+        
         cv_end_time = time.time()
         
         #pprint.pprint(training_results)
@@ -1103,8 +1114,8 @@ def plotCV(cvresult, optimal_boosters, context, intervals, training_results, tit
 
 
     plt.axhline(y = 1, color='k',linewidth=1, ls ='dashed')
-    plt.axhline(y = valid_acc_float[int(optimal_boosters)], color='k',linewidth=1, ls ='dashed')
-    plt.axvline(x = int(optimal_boosters), color='k',linewidth=1, ls ='dashed')
+    plt.axhline(y = valid_acc_float[int(optimal_boosters)], color='k',linewidth=2, ls ='dashed')
+    plt.axvline(x = int(optimal_boosters), color='k',linewidth=2, ls ='dashed')
     #print(intervals[len(intervals)-1])
     
     for interval in intervals:
