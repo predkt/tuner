@@ -1,0 +1,53 @@
+Beginning Heap
+3.5.3 |Anaconda custom (64-bit)| (default, Mar  6 2017, 11:58:13) 
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
+---------------
+Object Growth
+list       18360        +3
+weakref     7488        +2
+None
+-------------------------------
+Software Versions
+Installed Versions : [('Python', '3.5.3 64bit [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]'), ('IPython', '6.1.0'), ('OS', 'Linux 3.13.0 121 generic x86_64 with debian jessie sid'), ('numpy', '1.12.1'), ('scipy', '0.19.0'), ('matplotlib', '2.0.2'), ('pandas', '0.20.1'), ('scikit-learn', '0.18.2'), ('xgboost', '0.6'), ('tensorflow', '1.2.1')]
+-------------------------------
+-------------------------------
+Run time Context
+log path : logs/20171020/
+plot path : plots/20171020/run_213609/
+model path : savedmodels/20171020/
+stats path : stats/20171020/
+run date : 20171020
+run time : 213609
+statsfile : stats/20171020/stats_20171020213609
+runprofiles path : runprofiles/20171020/
+pickle : runpickles/20171020/run_20171020213609
+summary : runprofiles/20171020/summary_20171020213609.txt
+modelpickles : savedmodels/20171020/pickled_20171020213609
+-------------------------------
+-------------------------------
+Dataset Details
+validations dataset : (100, 784)
+test dataset : (100, 784)
+validation labels : (100,)
+training dataset : (500, 784)
+training labels : (500,)
+test labels : (100,)
+-------------------------------
+-------------------------------
+ 
+         : sample-notMNIST.pickle::: interval: 5 threshold: 0.1
+-------------------------------
+-------------------------------
+ Initial Parameters
+objective : multi:softmax
+seed : 27
+learning_rate : 0.01
+n_estimators : 5000
+colsample_bytree : 0.7
+num_class : 10
+gamma : 0
+max_depth : 3
+min_child_weight : 1
+reg_alpha : 0.001
+subsample : 0.7
+-------------------------------
