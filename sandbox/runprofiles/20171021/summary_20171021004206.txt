@@ -1,0 +1,123 @@
+Beginning Heap
+3.5.3 |Anaconda custom (64-bit)| (default, Mar  6 2017, 11:58:13) 
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
+---------------
+Object Growth
+dict         34856       +58
+list         12366       +20
+Name            50       +13
+_FuncPtr        19       +13
+keyword          9        +9
+tuple        23447        +8
+frame          115        +7
+traceback        6        +5
+BinOp            5        +5
+Call            20        +3
+None
+-------------------------------
+Software Versions
+Installed Versions : [('Python', '3.5.3 64bit [GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]'), ('IPython', '6.1.0'), ('OS', 'Linux 3.13.0 121 generic x86_64 with debian jessie sid'), ('numpy', '1.12.1'), ('scipy', '0.19.0'), ('matplotlib', '2.0.2'), ('pandas', '0.20.1'), ('scikit-learn', '0.18.2'), ('xgboost', '0.6'), ('tensorflow', '1.2.1')]
+-------------------------------
+-------------------------------
+Run time Context
+runprofiles path : runprofiles/20171021/
+model path : savedmodels/20171021/
+log path : logs/20171021/
+stats path : stats/20171021/
+summary : runprofiles/20171021/summary_20171021004206.txt
+modelpickles : savedmodels/20171021/pickled_20171021004206
+run date : 20171021
+pickle : runpickles/20171021/run_20171021004206
+plot path : plots/20171021/run_004206/
+run time : 004206
+statsfile : stats/20171021/stats_20171021004206
+-------------------------------
+-------------------------------
+Dataset Details
+training labels : (50000,)
+test dataset : (15000, 784)
+validation labels : (15000,)
+training dataset : (50000, 784)
+test labels : (15000,)
+validations dataset : (15000, 784)
+-------------------------------
+-------------------------------
+ 
+         : notMNIST50-15-15.pickle::: interval: 5000 threshold: 0.5
+-------------------------------
+-------------------------------
+ Initial Parameters
+gamma : 0
+objective : multi:softmax
+reg_alpha : 0.001
+colsample_bytree : 0.7
+min_child_weight : 1
+learning_rate : 0.001
+colsample_bylevel : 0.7
+seed : 27
+max_depth : 3
+reg_lambda : 1
+num_class : 10
+n_estimators : 5000
+subsample : 0.7
+-------------------------------
+-------------------------------
+ 
+         : notMNIST50-15-15.pickle::: interval: 5000 threshold: 0.1
+-------------------------------
+-------------------------------
+ Initial Parameters
+gamma : 0
+objective : multi:softmax
+reg_alpha : 0.001
+colsample_bytree : 0.7
+min_child_weight : 1
+learning_rate : 0.001
+colsample_bylevel : 0.7
+seed : 27
+max_depth : 3
+reg_lambda : 1
+num_class : 10
+n_estimators : 5000
+subsample : 0.7
+-------------------------------
+-------------------------------
+ 
+         : notMNIST50-15-15.pickle::: interval: 25 threshold: 0.5
+-------------------------------
+-------------------------------
+ Initial Parameters
+gamma : 0
+objective : multi:softmax
+reg_alpha : 0.001
+colsample_bytree : 0.7
+min_child_weight : 1
+learning_rate : 0.001
+colsample_bylevel : 0.7
+seed : 27
+max_depth : 3
+reg_lambda : 1
+num_class : 10
+n_estimators : 5000
+subsample : 0.7
+-------------------------------
+-------------------------------
+ 
+         : notMNIST50-15-15.pickle::: interval: 25 threshold: 0.1
+-------------------------------
+-------------------------------
+ Initial Parameters
+gamma : 0
+objective : multi:softmax
+reg_alpha : 0.001
+colsample_bytree : 0.7
+min_child_weight : 1
+learning_rate : 0.001
+colsample_bylevel : 0.7
+seed : 27
+max_depth : 3
+reg_lambda : 1
+num_class : 10
+n_estimators : 5000
+subsample : 0.7
+-------------------------------
