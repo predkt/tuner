@@ -1,0 +1,92 @@
+Beginning Heap
+3.5.3 |Anaconda custom (64-bit)| (default, Mar  6 2017, 11:58:13) 
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-1)]
+---------------
+Object Growth
+[0]	Train-merror:0.2887	Test-merror:0.2259	Valid-merror:0.3055
+Multiple eval metrics have been passed: 'Valid-merror' will be used for early stopping.
+
+Will train until Valid-merror hasn't improved in 45 rounds.
+[25]	Train-merror:0.2333	Test-merror:0.1763	Valid-merror:0.2518
+[50]	Train-merror:0.2316	Test-merror:0.1742	Valid-merror:0.2495
+[75]	Train-merror:0.23075	Test-merror:0.1738	Valid-merror:0.246
+[100]	Train-merror:0.22785	Test-merror:0.1706	Valid-merror:0.2458
+[125]	Train-merror:0.228	Test-merror:0.1687	Valid-merror:0.247
+Stopping. Best iteration:
+[84]	Train-merror:0.22945	Test-merror:0.172	Valid-merror:0.2444
+
+CPU times: user 8min 34s, sys: 5.35 s, total: 8min 39s
+Wall time: 15.3 s
+[0]	Train-merror:0.2887	Test-merror:0.2259	Valid-merror:0.3055
+Multiple eval metrics have been passed: 'Valid-merror' will be used for early stopping.
+
+Will train until Valid-merror hasn't improved in 45 rounds.
+[25]	Train-merror:0.2199	Test-merror:0.1699	Valid-merror:0.2453
+[50]	Train-merror:0.07805	Test-merror:0.1098	Valid-merror:0.1824
+[75]	Train-merror:0.1008	Test-merror:0.1139	Valid-merror:0.1863
+[100]	Train-merror:0.0858	Test-merror:0.106	Valid-merror:0.1772
+[125]	Train-merror:0.07705	Test-merror:0.1029	Valid-merror:0.1727
+[150]	Train-merror:0.0713	Test-merror:0.1005	Valid-merror:0.1698
+[175]	Train-merror:0.06805	Test-merror:0.0986	Valid-merror:0.1684
+[200]	Train-merror:0.07515	Test-merror:0.0996	Valid-merror:0.1693
+Stopping. Best iteration:
+[168]	Train-merror:0.0686	Test-merror:0.099	Valid-merror:0.1681
+
+CPU times: user 42min 7s, sys: 15.9 s, total: 42min 23s
+Wall time: 1min 12s
+[0]	Train-merror:0.2887	Test-merror:0.2259	Valid-merror:0.3055
+Multiple eval metrics have been passed: 'Valid-merror' will be used for early stopping.
+
+Will train until Valid-merror hasn't improved in 70 rounds.
+[50]	Train-merror:0.2316	Test-merror:0.1742	Valid-merror:0.2495
+[100]	Train-merror:0.22785	Test-merror:0.1706	Valid-merror:0.2458
+[150]	Train-merror:0.22695	Test-merror:0.1679	Valid-merror:0.2458
+Stopping. Best iteration:
+[84]	Train-merror:0.22945	Test-merror:0.172	Valid-merror:0.2444
+
+CPU times: user 10min 2s, sys: 6.09 s, total: 10min 8s
+Wall time: 18 s
+[0]	Train-merror:0.2887	Test-merror:0.2259	Valid-merror:0.3055
+Multiple eval metrics have been passed: 'Valid-merror' will be used for early stopping.
+
+Will train until Valid-merror hasn't improved in 70 rounds.
+[50]	Train-merror:0.2218	Test-merror:0.1692	Valid-merror:0.246
+[100]	Train-merror:0.0621	Test-merror:0.1033	Valid-merror:0.1774
+[150]	Train-merror:0.099	Test-merror:0.1164	Valid-merror:0.1912
+Stopping. Best iteration:
+[99]	Train-merror:0.06155	Test-merror:0.1035	Valid-merror:0.1767
+
+CPU times: user 19min 44s, sys: 8.76 s, total: 19min 53s
+Wall time: 34.5 s
+[0]	Train-merror:0.2887	Test-merror:0.2259	Valid-merror:0.3055
+Multiple eval metrics have been passed: 'Valid-merror' will be used for early stopping.
+
+Will train until Valid-merror hasn't improved in 95 rounds.
+[75]	Train-merror:0.23075	Test-merror:0.1738	Valid-merror:0.246
+[150]	Train-merror:0.22695	Test-merror:0.1679	Valid-merror:0.2458
+Stopping. Best iteration:
+[84]	Train-merror:0.22945	Test-merror:0.172	Valid-merror:0.2444
+
+CPU times: user 11min 39s, sys: 6.38 s, total: 11min 46s
+Wall time: 20.6 s
+[0]	Train-merror:0.2887	Test-merror:0.2259	Valid-merror:0.3055
+Multiple eval metrics have been passed: 'Valid-merror' will be used for early stopping.
+
+Will train until Valid-merror hasn't improved in 95 rounds.
+[75]	Train-merror:0.22705	Test-merror:0.1703	Valid-merror:0.2439
+[150]	Train-merror:0.10915	Test-merror:0.1137	Valid-merror:0.1879
+[225]	Train-merror:0.0337	Test-merror:0.0985	Valid-merror:0.1683
+[300]	Train-merror:0.04435	Test-merror:0.0975	Valid-merror:0.1672
+[375]	Train-merror:0.05805	Test-merror:0.1026	Valid-merror:0.1737
+Stopping. Best iteration:
+[292]	Train-merror:0.04295	Test-merror:0.0975	Valid-merror:0.1665
+
+CPU times: user 1h 9min 26s, sys: 21 s, total: 1h 9min 47s
+Wall time: 1min 58s
+[0]	Train-merror:0.2887	Test-merror:0.2259	Valid-merror:0.3055
+Multiple eval metrics have been passed: 'Valid-merror' will be used for early stopping.
+
+Will train until Valid-merror hasn't improved in 120 rounds.
+[100]	Train-merror:0.22785	Test-merror:0.1706	Valid-merror:0.2458
+[200]	Train-merror:0.22425	Test-merror:0.1671	Valid-merror:0.244
+[300]	Train-merror:0.22125	Test-merror:0.1642	Valid-merror:0.2426
