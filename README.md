@@ -16,7 +16,9 @@ Regardless of the learning algorithm implemented or the technique used, what mat
 
 The tuner implements a diagnosis routine that takes in a read of training, validation and test errors and produces a diagnosis of either 'tuned', 'High Bias' or 'High Variance' verdict. Based on this diagnosis, the parameters are updated in the direction that would correct for the diagnosed problem. For instance, if the diagnosis is 'High Variance', regularization parameters such as reg_alpha and reg_lambda are moved in the positive direction (increased). The new parameters are, however, chosen randomly - by setting the existing value of the parameter along with the maximum/minimum allowed range for the parameter as the range for the new parameter.
 
-The model diagnosis and parameters update  is done in-between training iterations by utilizing api call back functions. This means that the model can be tuned really fast, as it trains.  It also cuts down the need to create multiple models like the grid search technique. Results on the same nonMNIST problem tuned using ngTuner is documented  [here](https://github.com/predkt/tuner/blob/master/sandbox/notMNIST%20-XBGOOST%20with%20ngTuner.ipynb), This  tuner took only 17.8 seconds and yet produced a far well trained model than the 16 hour gridsearch tuner run.
+The model diagnosis and parameters update  is done in-between training iterations by utilizing call back functions of the core booster runs. This means that  models can be tuned really fast, while they train! It also cuts down the need to create multiple models like the grid search technique reducing overheads significanlty. 
+
+Results on the same nonMNIST problem tuned using ngTuner is documented  [here](https://github.com/predkt/tuner/blob/master/sandbox/notMNIST%20-XBGOOST%20with%20ngTuner.ipynb), This tuner took only 17.8 seconds and yet produced a far well trained model- while requiring less than a third number of boosters- than the than the 16 hour gridsearch tuner.
 
 ![gridsearchtuner results](https://github.com/predkt/tuner/blob/master/images/ngtuner.png)"")
 
