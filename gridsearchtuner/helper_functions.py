@@ -202,8 +202,8 @@ def send_email(subject, body, version_list_html='', files=None, context = None):
     
  
     smtp_server = 'email-smtp.us-east-1.amazonaws.com'
-    smtp_username = 'AKIAJFYKGSZH6TNFD2WQ'
-    smtp_password = 'AoSGycN2iVoV9b/eDhm6ht2ZK7OaRa58InGKywLQ/nfF'
+    smtp_username = 'A'
+    smtp_password = 'A'
     smtp_port = '587'
     smtp_do_tls = True
 
